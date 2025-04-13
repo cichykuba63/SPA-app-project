@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>NavPoint</title>
+		<!-- google fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+			rel="stylesheet" />
+		<!-- font awesome -->
+		<script src="https://kit.fontawesome.com/7454208e0e.js" crossorigin="anonymous"></script>
+		<!-- bootstrap -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+			crossorigin="anonymous" />
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+			crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="./css/main.css" />
+	</head>
+	<body>
+		<div class="container-fluid d-flex align-items-center justify-content-center vh-100">
+			<div class="login-box">
+				<div class="logo mb-4">
+					<img
+						src="https://f-droid.org/repo/app.organicmaps/en-US/icon_dE7f4P95-uKZwu7cI89Q0xSi_-gvU4DD-XnLoDG9RLg=.png?fbclid=IwY2xjawJobV9leHRuA2FlbQIxMAABHt9LGRH4IBrd4blp4LZJ6gxby2cfBreyR3-a3QRoswIBy5kthiXlKn-zOqNa_aem_lMPG233bk_v4hoJdN_Jlqw"
+						style="width: 150px; height: 150px"
+						alt="logo aplikacji - gps" />
+					<span>NavPoint</span>
+				</div>
+
+				<form class="login-form">
+					<div class="mb-3">
+						<input type="email" class="form-control" id="login-email" placeholder="sample@email.com" />
+					</div>
+					<div class="mb-3">
+						<input type="password" class="form-control" id="login-password" placeholder="**********" />
+					</div>
+					<button type="submit" class="btn login-btn w-100 mb-3" id="login-btn">LOG IN</button>
+
+					<a href="#" class="btn signup-link" id="create-account-btn">Don't have an account? Sign up now!</a>
+
+					<a href="#" class="btn signup-link" id="login-google"
+						>Log in with &nbsp;<i class="fa-brands fa-google"></i
+					></a>
+				</form>
+				<form class="register-form d-none">
+					<div class="mb-3">
+						<input type="email" class="form-control" id="register-email" placeholder="Enter your email" />
+					</div>
+					<div class="mb-3">
+						<input type="password" class="form-control" id="register-password" placeholder="Create password" />
+						<small class="form-text">
+							Password must be at least 8 characters, include uppercase, lowercase, and a special character.
+						</small>
+						<div id="password-error" class="text-danger mt-2" style="font-size: 1.3rem"></div>
+					</div>
+					<button type="submit" class="btn login-btn w-100 mb-3" id="register-btn">CREATE ACCOUNT</button>
+
+					<a href="#" class="btn signup-link" id="back-to-login-btn">Already have an account? Log in</a>
+				</form>
+				<span class="text-bottom">Map data from OpenStreetMap</span>
+			</div>
+		</div>
+		<script src="./js/main.js"></script>
+	</body>
+</html>

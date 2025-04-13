@@ -1,0 +1,143 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font-family: inherit;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+textarea {
+  resize: vertical;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+:root {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  background-color: #006c35;
+}
+
+.login-box {
+  padding: 2em 1em;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+}
+
+.logo {
+  font-weight: bold;
+  color: white;
+}
+.logo span {
+  font-size: 2.5rem;
+  display: block;
+}
+
+.form-control {
+  padding: 1em;
+}
+.form-control::-moz-placeholder {
+  color: #006c35;
+  font-size: 1.3rem;
+}
+.form-control::placeholder {
+  color: #006c35;
+  font-size: 1.3rem;
+}
+.form-control:focus {
+  box-shadow: none;
+  border: 2px solid #000;
+}
+
+.login-btn {
+  margin-top: 10px;
+  padding: 1em;
+  font-size: 1.3rem;
+  font-weight: bold;
+  background-color: white;
+  color: #006c35;
+}
+.login-btn:hover {
+  background-color: white;
+  color: #006c35;
+}
+
+.text-bottom {
+  display: block;
+  margin-top: 2em;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.signup-link {
+  display: block;
+  padding: 10px;
+  border: 1px solid white;
+  color: white;
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-top: 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+.signup-link:hover {
+  background-color: white;
+  color: #006c35;
+}
+
+.register-form .form-text {
+  display: block;
+  margin-top: 1.5em;
+  color: white;
+  font-size: 1.2rem;
+}
+
+@media (width >= 576px) {
+  .logo {
+    font-size: 2.5rem;
+  }
+}
+@media (width >= 768px) {
+  .login-box {
+    padding: 3rem 2rem;
+  }
+}/*# sourceMappingURL=main.css.map */

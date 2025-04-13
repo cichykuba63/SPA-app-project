@@ -1,0 +1,105 @@
+@use "./reset";
+
+$main-color: #006c35;
+
+:root {
+	font-size: 62.5%;
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: "Montserrat", sans-serif;
+	background-color: $main-color;
+}
+
+// login form
+.login-box {
+	padding: 2em 1em;
+	text-align: center;
+	width: 100%;
+	max-width: 400px;
+	margin: auto;
+}
+
+.logo {
+	font-weight: bold;
+	color: white;
+
+	span {
+		font-size: 2.5rem;
+		display: block;
+	}
+}
+
+.form-control {
+	padding: 1em;
+
+	&::placeholder {
+		color: $main-color;
+		font-size: 1.3rem;
+	}
+
+	&:focus {
+		box-shadow: none;
+		border: 2px solid #000;
+	}
+}
+
+.login-btn {
+	margin-top: 10px;
+	padding: 1em;
+	font-size: 1.3rem;
+	font-weight: bold;
+	background-color: white;
+	color: $main-color;
+
+	&:hover {
+		background-color: white;
+		color: $main-color;
+	}
+}
+
+.text-bottom {
+	display: block;
+	margin-top: 2em;
+	font-size: 1.5rem;
+	color: #fff;
+}
+
+.signup-link {
+	display: block;
+	padding: 10px;
+	border: 1px solid white;
+	color: white;
+	font-weight: bold;
+	font-size: 1.3rem;
+	margin-top: 20px;
+	border-radius: 5px;
+	text-decoration: none;
+
+	&:hover {
+		background-color: white;
+		color: $main-color;
+	}
+}
+
+.register-form {
+	.form-text {
+		display: block;
+		margin-top: 1.5em;
+		color: white;
+		font-size: 1.2rem;
+	}
+}
+
+@media (width >= 576px) {
+	.logo {
+		font-size: 2.5rem;
+	}
+}
+
+@media (width >= 768px) {
+	.login-box {
+		padding: 3rem 2rem;
+	}
+}
