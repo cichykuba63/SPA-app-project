@@ -1,6 +1,8 @@
 @use "./reset";
 
 $main-color: #006c35;
+$secondary-color: #ffddab;
+$cream: #f5fffa;
 
 :root {
 	font-size: 62.5%;
@@ -9,16 +11,20 @@ $main-color: #006c35;
 
 body {
 	font-family: "Montserrat", sans-serif;
-	background-color: $main-color;
+	background-color: $secondary-color;
 }
 
-// login form
+.box {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 .login-box {
-	padding: 2em 1em;
+	padding: 10px 20px;
 	text-align: center;
 	width: 100%;
 	max-width: 400px;
-	margin: auto;
 }
 
 .logo {
@@ -26,13 +32,13 @@ body {
 	color: white;
 
 	span {
-		font-size: 2.5rem;
 		display: block;
+		font-size: 2.5rem;
 	}
 }
 
 .form-control {
-	padding: 1em;
+	padding: 10px;
 
 	&::placeholder {
 		color: $main-color;
@@ -92,6 +98,55 @@ body {
 	}
 }
 
+.main-app {
+	.nav {
+		padding: 5px;
+		background-color: $main-color;
+
+		.navbar {
+			justify-content: space-between;
+		}
+
+		.navbar-toggler {
+			padding: 10px 15px;
+			font-size: 2rem;
+			border: 1px solid #333;
+		}
+
+		.navbar-nav {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			margin: 15px 0;
+
+			.nav-link {
+				font-size: 1.5rem;
+				color: white;
+			}
+		}
+	}
+
+	.main {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: calc(100vh - 70px);
+
+		.map {
+			border: 2px solid #000;
+			max-width: 1300px;
+			max-height: 900px;
+		}
+
+		.text-bottom {
+			margin-top: 15px;
+			font-weight: bold;
+			color: $main-color;
+		}
+	}
+}
+
 @media (width >= 576px) {
 	.logo {
 		font-size: 2.5rem;
@@ -101,5 +156,23 @@ body {
 @media (width >= 768px) {
 	.login-box {
 		padding: 3rem 2rem;
+	}
+}
+
+@media (width >= 992px) {
+	.main-app {
+		.nav {
+			.navbar-nav {
+				margin-left: auto;
+				flex-direction: row;
+				margin-top: 0;
+				margin-bottom: 0;
+			}
+
+			.nav-link {
+				padding: 10px;
+				display: block;
+			}
+		}
 	}
 }
