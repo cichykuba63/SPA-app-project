@@ -6,16 +6,31 @@ document.addEventListener("DOMContentLoaded", () => {
 	const createAccountBtn = document.getElementById("create-account-btn")
 	const backToLoginBtn = document.getElementById("back-to-login-btn")
 
+	function updateBackgroundBasedOnBox() {
+		const box = document.querySelector(".box")
+		const app = document.querySelector(".main-app")
+
+		const isVisible = getComputedStyle(box).display !== "none"
+
+		if (isVisible) {
+			app.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue("--main-color")
+		} else {
+			app.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue("--secondary-color")
+		}
+	}
+
 	createAccountBtn.addEventListener("click", e => {
 		e.preventDefault()
 		loginForm.classList.add("d-none")
 		registerForm.classList.remove("d-none")
+		updateBackgroundBasedOnBox()
 	})
 
 	backToLoginBtn.addEventListener("click", e => {
 		e.preventDefault()
 		registerForm.classList.add("d-none")
 		loginForm.classList.remove("d-none")
+		updateBackgroundBasedOnBox()
 	})
 
 	const registerFormElement = document.querySelector(".register-form")
