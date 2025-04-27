@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const mapContainer = document.getElementById("map")
 	const gpsButton = document.getElementById("enable-gps")
 	const favPlacesBtn = document.getElementById("favourite-places")
-	const favPlacesTable = document.getElementById("fav-places-table")
+	const favPlacesTable = document.getElementById("table-box")
 	let map
 	let marker
 	let userPosition

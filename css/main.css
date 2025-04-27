@@ -183,6 +183,10 @@ body {
   font-weight: bold;
   color: #006c35;
 }
+.main-app .main .table {
+  margin-top: 20px;
+  font-size: 1.1rem;
+}
 
 @media (width >= 576px) {
   .logo {
