@@ -21,6 +21,8 @@ async function displayFavouritePlaces() {
     const places = await fetchFavouritePlaces();
     const tableBody = document.getElementById('favourite-places-table-data');
 
+    tableBody.innerHTML = "";  // Usuwamy wszystkie wiersze z tabeli
+    
     places.forEach((place, index) => {
         const row = document.createElement('tr');
         
