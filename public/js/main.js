@@ -1,4 +1,4 @@
-import { addFavouritePlace } from './db.js'; // Importuj funkcję z db.js
+import { addFavouritePlace, addUserLocation } from "./db.js" //
 
 document.addEventListener("DOMContentLoaded", () => {
 	// login
@@ -34,26 +34,25 @@ document.addEventListener("DOMContentLoaded", () => {
 	})
 
 	AddFavPlaceform.addEventListener("submit", async e => {
-        e.preventDefault(); // Zapobiega domyślnej akcji formularza
+		e.preventDefault() // Zapobiega domyślnej akcji formularza
 
-        // Pobieranie danych z formularza
-        const name = document.getElementById("place-name").value;
-        const location = document.getElementById("place-location").value;
-        const description = document.getElementById("place-description").value;
+		// Pobieranie danych z formularza
+		const name = document.getElementById("place-name").value
+		const location = document.getElementById("place-location").value
+		const description = document.getElementById("place-description").value
 
-        try {
-            // Wywołaj funkcję z db.js do dodania nowego miejsca
-            await addFavouritePlace(name, location, description);
+		try {
+			// Wywołaj funkcję z db.js do dodania nowego miejsca
+			await addFavouritePlace(name, location, description)
 
-            // Wyświetl komunikat o sukcesie
-            document.getElementById("form-message").textContent = "Miejsce zostało dodane!";
-            AddFavPlaceform.reset(); // Zresetuj formularz
-        } catch (error) {
-            // Obsłuż błędy i wyświetl je
-            document.getElementById("form-message").textContent = "Błąd: " + error.message;
-        }
+			// Wyświetl komunikat o sukcesie
+			document.getElementById("form-message").textContent = "Miejsce zostało dodane!"
+			AddFavPlaceform.reset() // Zresetuj formularz
+		} catch (error) {
+			// Obsłuż błędy i wyświetl je
+			document.getElementById("form-message").textContent = "Błąd: " + error.message
+		}
 	})
-	
 
 	createAccountBtn.addEventListener("click", e => {
 		e.preventDefault()
@@ -129,6 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 					gpsButton.textContent = "Disable GPS"
 					gpsButton.dataset.status = "enabled"
+					
+					addUserLocation("Anonimowy użytkownik", latitude, longitude)
 				},
 				error => {
 					alert("Nie udało się pobrać lokalizacji.")

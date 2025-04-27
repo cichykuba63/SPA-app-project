@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"
 import { GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"
+import { getFirestore, GeoPoint } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"
 
 // Konfiguracja Firebase
 const firebaseConfig = {
@@ -19,4 +19,4 @@ const auth = getAuth(app)
 const provider = new GoogleAuthProvider()
 const db = getFirestore(app)
 
-export {app, auth, provider, db}
+export {app, auth, provider, db, GeoPoint}

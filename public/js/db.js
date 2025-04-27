@@ -1,4 +1,4 @@
-import { db } from "./firebase.js"
+import { db, GeoPoint } from "./firebase.js"
 import {
 	collection,
 	getDocs,
@@ -92,6 +92,18 @@ export async function addFavouritePlace(name, location, description) {
 	} catch (e) {
 		console.error("Błąd przy dodawaniu miejsca: ", e)
 		throw new Error("Nie udało się dodać miejsca")
+	}
+}
+
+export async function addUserLocation(name, latitude, longitude) {
+	try {
+		await addDoc(collection(db, "users_locations"), {
+			name: name,
+			location: new GeoPoint(latitude, longitude),
+		})
+		console.log("Lokalizacja użytkownika została zapisana.")
+	} catch (error) {
+		console.error("Błąd przy zapisie lokalizacji użytkownika: ", error)
 	}
 }
 
