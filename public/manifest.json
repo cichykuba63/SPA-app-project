@@ -1,0 +1,18 @@
+{
+    "name": "NavPoint",
+    "theme_color": "#006c35",
+    "background_color": "#006c35",
+    "short_name": "NP",
+    "id": "63",
+    "description": "Strona do lokalizowania innych użytkowników",
+    "icons": [
+      {
+        "src": "https://f-droid.org/repo/app.organicmaps/en-US/icon_dE7f4P95-uKZwu7cI89Q0xSi_-gvU4DD-XnLoDG9RLg=.png?fbclid=IwY2xjawJobV9leHRuA2FlbQIxMAABHt9LGRH4IBrd4blp4LZJ6gxby2cfBreyR3-a3QRoswIBy5kthiXlKn-zOqNa_aem_lMPG233bk_v4hoJdN_Jlqw",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": "/index.html",
+    "display": "standalone",
+    "scope": "/"
+  }
