@@ -1,69 +1,102 @@
-import { db } from './firebase.js'; // Importujesz instancję Firestore
-import { collection, getDocs, addDoc } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
+import { db } from "./firebase.js"
+import {
+	collection,
+	getDocs,
+	addDoc,
+	deleteDoc,
+	doc,
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"
 
 const AddFavPlaceBtn = document.getElementById("add-place-btn")
+
 async function fetchFavouritePlaces() {
-    try {
-        const querySnapshot = await getDocs(collection(db, "favourite_places"));
-        if (querySnapshot.empty) {
-            console.log("No documents found in 'favourite_places'");
-            return [];
-        }
-        const places = querySnapshot.docs.map(doc => doc.data());
-        return places;
-    } catch (error) {
-        console.error("Error fetching documents: ", error);
-        return [];
-    }
+	try {
+		const querySnapshot = await getDocs(collection(db, "favourite_places"))
+		if (querySnapshot.empty) {
+			console.log("No documents found in 'favourite_places'")
+			return []
+		}
+		// Zwracamy też ID dokumentu, żeby móc go potem usunąć
+		const places = querySnapshot.docs.map(docSnap => ({
+			id: docSnap.id,
+			...docSnap.data(),
+		}))
+		return places
+	} catch (error) {
+		console.error("Error fetching documents: ", error)
+		return []
+	}
+}
+
+async function deleteFavouritePlace(id) {
+	try {
+		await deleteDoc(doc(db, "favourite_places", id))
+		await displayFavouritePlaces()
+	} catch (error) {
+		console.error("Błąd podczas usuwania miejsca: ", error)
+	}
 }
 
 async function displayFavouritePlaces() {
-    const places = await fetchFavouritePlaces();
-    const tableBody = document.getElementById('favourite-places-table-data');
+	const places = await fetchFavouritePlaces()
+	const tableBody = document.getElementById("favourite-places-table-data")
 
-    tableBody.innerHTML = "";  // Usuwamy wszystkie wiersze z tabeli
-    
-    places.forEach((place, index) => {
-        const row = document.createElement('tr');
-        
-        const cell1 = document.createElement('td');
-        cell1.textContent = index + 1; // Numeracja
-        row.appendChild(cell1);
+	tableBody.innerHTML = "" // Czyścimy tabelę
 
-        const cell2 = document.createElement('td');
-        cell2.textContent = place.name; // Nazwa miejsca
-        row.appendChild(cell2);
+	places.forEach((place, index) => {
+		const row = document.createElement("tr")
 
-        const cell3 = document.createElement('td');
-        cell3.textContent = place.location; // Współrzędne
-        row.appendChild(cell3);
+		const cell1 = document.createElement("td")
+		cell1.textContent = index + 1 // Numeracja
+		row.appendChild(cell1)
 
-        const cell4 = document.createElement('td');
-        cell4.textContent = place.description; // Opis miejsca
-        row.appendChild(cell4);
+		const cell2 = document.createElement("td")
+		cell2.textContent = place.name // Nazwa miejsca
+		row.appendChild(cell2)
 
-        tableBody.appendChild(row);
-    });
+		const cell3 = document.createElement("td")
+		cell3.textContent = place.location // Współrzędne
+		row.appendChild(cell3)
+
+		const cell4 = document.createElement("td")
+		cell4.textContent = place.description // Opis miejsca
+		row.appendChild(cell4)
+
+		// Nowa komórka na ikonę kosza
+		const cell5 = document.createElement("td")
+		const trashButton = document.createElement("button")
+		trashButton.innerHTML = '<i class="fa-solid fa-trash"></i>'
+		trashButton.classList.add("delete-btn")
+
+		// Obsługa kliknięcia w ikonę
+		trashButton.addEventListener("click", () => {
+			if (confirm("Czy na pewno chcesz usunąć to miejsce?")) {
+				deleteFavouritePlace(place.id)
+			}
+		})
+
+		cell5.appendChild(trashButton)
+		row.appendChild(cell5)
+
+		tableBody.appendChild(row)
+	})
 }
 
-// Funkcja dodająca nowe miejsce do Firestore
 export async function addFavouritePlace(name, location, description) {
-    try {
-        // Dodajemy nowe miejsce do kolekcji "favourite_places"
-        const docRef = await addDoc(collection(db, "favourite_places"), {
-            name: name,
-            description: description,
-            location: location,  // Możesz dodać współrzędne, jeśli chcesz
-        });
-        console.log("Miejsce zostało dodane z ID: ", docRef.id);
-    } catch (e) {
-        console.error("Błąd przy dodawaniu miejsca: ", e);
-        throw new Error('Nie udało się dodać miejsca');
-    }
+	try {
+		const docRef = await addDoc(collection(db, "favourite_places"), {
+			name: name,
+			description: description,
+			location: location,
+		})
+	} catch (e) {
+		console.error("Błąd przy dodawaniu miejsca: ", e)
+		throw new Error("Nie udało się dodać miejsca")
+	}
 }
 
-// Wywołanie funkcji po załadowaniu strony
-window.onload = displayFavouritePlaces;
+window.onload = displayFavouritePlaces
 
-AddFavPlaceBtn.addEventListener("click", ()=>{displayFavouritePlaces()})
-
+AddFavPlaceBtn.addEventListener("click", () => {
+	displayFavouritePlaces()
+})
