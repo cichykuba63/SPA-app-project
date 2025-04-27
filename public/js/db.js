@@ -114,3 +114,26 @@ export async function deleteUserLocation(docId) {
 		console.error("Błąd przy usuwaniu lokalizacji użytkownika: ", error)
 	}
 }
+
+// Pobieranie lokalizacji wszystkich użytkowników
+export async function fetchUserLocations() {
+	try {
+		const querySnapshot = await getDocs(collection(db, "users_locations"))
+		if (querySnapshot.empty) {
+			console.log("No documents found in 'users_locations'")
+			return []
+		}
+
+		// Zwracamy lokalizacje użytkowników (name, location)
+		const users = querySnapshot.docs.map(docSnap => ({
+			id: docSnap.id,
+			name: docSnap.data().name,
+			location: docSnap.data().location,
+		}))
+
+		return users
+	} catch (error) {
+		console.error("Error fetching documents: ", error)
+		return []
+	}
+}

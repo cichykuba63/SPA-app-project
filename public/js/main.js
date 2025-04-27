@@ -1,5 +1,5 @@
 import { auth } from "./firebase.js"
-import { addFavouritePlace, addUserLocation, deleteUserLocation, displayFavouritePlaces } from "./db.js"
+import { addFavouritePlace, addUserLocation, deleteUserLocation, displayFavouritePlaces, fetchUserLocations } from "./db.js"
 
 document.addEventListener("DOMContentLoaded", () => {
 	// login
@@ -18,9 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	const favPlacesTable = document.getElementById("favPlaces-box")
 	const AddFavPlaceform = document.getElementById("add-favourite-place-form")
 	const AddFavPlaceBtn = document.getElementById("add-place-btn")
+	const showPeopleBtn = document.getElementById("show-people")
 	let map
 	let marker
 	let userPosition
+	let userMarker
+	let peopleMarkers = [] // Przechowujemy markery użytkowników
 	let locationDocId = null
 
 	function validatePassword(password) {
@@ -31,6 +34,33 @@ document.addEventListener("DOMContentLoaded", () => {
 		const special = /[!@#$%^&*(),.?":{}|<>]/.test(password)
 		return length && upper && lower && digit && special
 	}
+
+	async function toggleUserMarkers() {
+		// Jeśli markery są już na mapie, usuwamy je
+		if (peopleMarkers.length > 0) {
+			peopleMarkers.forEach(marker => {
+				map.removeLayer(marker)
+			})
+			peopleMarkers = []
+		} else {
+			// Pobieramy lokalizacje użytkowników i dodajemy markery
+			const users = await fetchUserLocations()
+
+			users.forEach(user => {
+				const userMarker = L.marker([user.location.latitude, user.location.longitude])
+					.addTo(map)
+					.bindPopup(`${user.name}<br>${user.location.latitude}, ${user.location.longitude}`)
+
+				// Dodajemy marker do tablicy
+				peopleMarkers.push(userMarker)
+			})
+		}
+	}
+
+	// Obsługa kliknięcia w przycisk "show-people"
+	showPeopleBtn.addEventListener("click", () => {
+		toggleUserMarkers()
+	})
 
 	favPlacesBtn.addEventListener("click", () => {
 		favPlacesTable.classList.toggle("d-none")
