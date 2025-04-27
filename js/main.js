@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	const navbarCollapse = document.querySelector(".navbar-collapse")
 	const mapContainer = document.getElementById("map")
 	const gpsButton = document.getElementById("enable-gps")
+	const favPlacesBtn = document.getElementById("favourite-places")
+	const favPlacesTable = document.getElementById("fav-places-table")
 	let map
 	let marker
 	let userPosition
@@ -23,6 +25,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		const special = /[!@#$%^&*(),.?":{}|<>]/.test(password)
 		return length && upper && lower && digit && special
 	}
+
+	favPlacesBtn.addEventListener("click", () => {
+		favPlacesTable.classList.toggle("d-none")
+	})
 
 	createAccountBtn.addEventListener("click", e => {
 		e.preventDefault()

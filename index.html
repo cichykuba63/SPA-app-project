@@ -44,7 +44,7 @@
 						<input type="email" class="form-control" id="login-email" placeholder="sample@email.com" />
 					</div>
 					<div class="mb-3">
-						<input type="password" class="form-control" id="login-password" placeholder="**********"/>
+						<input type="password" class="form-control" id="login-password" placeholder="**********" />
 					</div>
 					<button type="submit" class="btn login-btn w-100 mb-3" id="login-btn">LOG IN</button>
 
@@ -96,7 +96,7 @@
 							<button class="nav-link" id="enable-gps">Enable GPS</button>
 							<button class="nav-link" id="show-people">Show people</button>
 							<button class="nav-link" id="generate-qr">Generate QR</button>
-							<button class="nav-link" id="favoutire-places">Favourite places</button>
+							<button class="nav-link" id="favourite-places">Favourite places</button>
 							<button class="nav-link" id="log-out">Log out</button>
 						</div>
 					</div>
@@ -105,6 +105,9 @@
 			<main class="main">
 				<div class="map" id="map" style="height: 90%; width: 90%"></div>
 				<span class="text-bottom">Map data from OpenStreetMap</span>
+				<table class="table table-striped d-none" id="fav-places-table">
+					
+				</table>
 			</main>
 		</div>
 		<script src="./js/main.js"></script>
