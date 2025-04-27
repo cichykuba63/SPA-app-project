@@ -1,6 +1,24 @@
-
 import { auth, provider } from "./firebase.js"
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"
+import {
+	signInWithEmailAndPassword,
+	createUserWithEmailAndPassword,
+	signInWithPopup,
+	signOut,
+	onAuthStateChanged,
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"
+
+function updateBackgroundBasedOnBox() {
+	const box = document.querySelector(".box")
+	const bodyTag = document.querySelector("body")
+
+	const isVisible = getComputedStyle(box).display !== "none"
+
+	if (isVisible) {
+		bodyTag.style.backgroundColor = "#006c35"
+	} else {
+		bodyTag.style.backgroundColor = "#ffddab"
+	}
+}
 
 // Logowanie email/hasło
 document.getElementById("login-btn").addEventListener("click", async e => {
@@ -47,8 +65,10 @@ onAuthStateChanged(auth, user => {
 	if (user) {
 		document.querySelector(".box").classList.add("d-none")
 		document.querySelector(".main-app").classList.remove("d-none")
+		updateBackgroundBasedOnBox()
 	} else {
 		document.querySelector(".box").classList.remove("d-none")
 		document.querySelector(".main-app").classList.add("d-none")
+		updateBackgroundBasedOnBox()
 	}
 })

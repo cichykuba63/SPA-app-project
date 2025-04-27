@@ -24,19 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		return length && upper && lower && digit && special
 	}
 
-	// function updateBackgroundBasedOnBox() {
-	// 	const box = document.querySelector(".box")
-	// 	const bodyTag = document.querySelector("body")
-
-	// 	const isVisible = getComputedStyle(box).display !== "none"
-
-	// 	if (isVisible) {
-	// 		bodyTag.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue("--main-color")
-	// 	} else {
-	// 		bodyTag.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue("--secondary-color")
-	// 	}
-	// }
-
 	createAccountBtn.addEventListener("click", e => {
 		e.preventDefault()
 		loginForm.classList.add("d-none")
