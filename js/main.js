@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const gpsButton = document.getElementById("enable-gps")
 	const favPlacesBtn = document.getElementById("favourite-places")
 	const favPlacesTable = document.getElementById("table-box")
-	const form = document.getElementById("add-favourite-place-form")
+	const AddFavPlaceform = document.getElementById("add-favourite-place-form")
 	let map
 	let marker
 	let userPosition
@@ -27,10 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		return length && upper && lower && digit && special
 	}
 
-	form.addEventListener("submit", async e => {
-		e.preventDefault() // Zapobiega domyślnej akcji formularza
+	AddFavPlaceform.addEventListener("submit", async e => {
+		e.preventDefault() 
 
-		// Pobierz dane z formularza
 		const name = document.getElementById("place-name").value
 		const location = document.getElementById("place-location").value
 		const description = document.getElementById("place-description").value
