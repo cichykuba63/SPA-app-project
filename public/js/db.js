@@ -82,7 +82,7 @@ export async function displayFavouritePlaces() {
 
 export async function addFavouritePlace(name, location, description) {
 	try {
-		const docRef = await addDoc(collection(db, "favourite_places"), {
+		await addDoc(collection(db, "favourite_places"), {
 			name: name,
 			description: description,
 			location: location,
