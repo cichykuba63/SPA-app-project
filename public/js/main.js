@@ -1,4 +1,5 @@
-import { addFavouritePlace, addUserLocation } from "./db.js" //
+import { auth } from "./firebase.js"
+import { addFavouritePlace, addUserLocation } from "./db.js"
 
 document.addEventListener("DOMContentLoaded", () => {
 	// login
@@ -117,7 +118,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(
 				position => {
+					const user = auth.currentUser
+					const email = user ? user.email : "Nieznany użytkownik"
 					const { latitude, longitude } = position.coords
+
 					userPosition = [latitude, longitude]
 
 					map.setView(userPosition, 16)
@@ -128,8 +132,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 					gpsButton.textContent = "Disable GPS"
 					gpsButton.dataset.status = "enabled"
-					
-					addUserLocation("Anonimowy użytkownik", latitude, longitude)
+
+					addUserLocation(email, latitude, longitude)
 				},
 				error => {
 					alert("Nie udało się pobrać lokalizacji.")
