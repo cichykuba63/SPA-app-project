@@ -151,13 +151,30 @@ body {
 			color: $main-color;
 		}
 
-		.table {
+		.favPlaces-box {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.favPlacesTable {
+			width: 100%;
 			margin-top: 20px;
 			font-size: 1.1rem;
+			text-align: center;
+
+			th,
+			td {
+				font-size: 1.3rem;
+			}
 		}
 
 		.add-favourite-place-form {
+			width: 75vw;
+			max-width: 400px;
 			margin-top: 15px;
+			margin-bottom: 20px;
 			border: 1px solid #333;
 			padding: 15px;
 
@@ -166,6 +183,7 @@ body {
 				font-size: 1.6rem;
 				font-weight: bold;
 				color: $main-color;
+				text-align: center;
 				text-transform: uppercase;
 				letter-spacing: 1px;
 			}
@@ -175,12 +193,13 @@ body {
 				flex-direction: column;
 				margin: 10px auto;
 
-				input, textarea {
+				input,
+				textarea {
 					padding: 5px;
 					border: 1px solid #000;
 				}
 			}
-			
+
 			.add-place-btn {
 				position: relative;
 				left: 50%;
