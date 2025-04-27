@@ -1,3 +1,5 @@
+import { addFavouritePlace } from './db.js'; // Importuj funkcję z db.js
+
 document.addEventListener("DOMContentLoaded", () => {
 	// login
 	const loginForm = document.querySelector(".login-form")
@@ -32,24 +34,26 @@ document.addEventListener("DOMContentLoaded", () => {
 	})
 
 	AddFavPlaceform.addEventListener("submit", async e => {
-		e.preventDefault()
+        e.preventDefault(); // Zapobiega domyślnej akcji formularza
 
-		const name = document.getElementById("place-name").value
-		const location = document.getElementById("place-location").value
-		const description = document.getElementById("place-description").value
+        // Pobieranie danych z formularza
+        const name = document.getElementById("place-name").value;
+        const location = document.getElementById("place-location").value;
+        const description = document.getElementById("place-description").value;
 
-		try {
-			// Wywołaj funkcję z db.js do dodania nowego miejsca
-			await addFavouritePlace(name, location, description)
+        try {
+            // Wywołaj funkcję z db.js do dodania nowego miejsca
+            await addFavouritePlace(name, location, description);
 
-			// Wyświetl komunikat o sukcesie
-			document.getElementById("form-message").textContent = "Miejsce zostało dodane!"
-			AddFavPlaceform.reset(); // Zresetuj formularz
-		} catch (error) {
-			// Obsłuż błędy i wyświetl je
-			document.getElementById("form-message").textContent = "Błąd: " + error.message
-		}
+            // Wyświetl komunikat o sukcesie
+            document.getElementById("form-message").textContent = "Miejsce zostało dodane!";
+            AddFavPlaceform.reset(); // Zresetuj formularz
+        } catch (error) {
+            // Obsłuż błędy i wyświetl je
+            document.getElementById("form-message").textContent = "Błąd: " + error.message;
+        }
 	})
+	
 
 	createAccountBtn.addEventListener("click", e => {
 		e.preventDefault()

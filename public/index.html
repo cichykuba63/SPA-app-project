@@ -109,8 +109,9 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>Nazwa miejsca</th>
-								<th>Współrzędne</th>
+								<th>Name of place</th>
+								<th>Location</th>
+								<th>Description</th>
 							</tr>
 						</thead>
 						<tbody id="favourite-places-table-data"></tbody>
@@ -123,7 +124,7 @@
 								<input type="text" id="place-name" required />
 							</div>
 							<div class="label-box">
-								<label for="place-location" class="label-desc">Localization:</label>
+								<label for="place-location" class="label-desc">Location:</label>
 								<input type="text" id="place-location" required />
 							</div>
 							<div class="label-box">
@@ -137,7 +138,7 @@
 				</div>
 			</main>
 		</div>
-		<script src="./js/main.js"></script>
+		<script type="module" src="./js/main.js"></script>
 		<script type="module" src="./js/firebase.js"></script>
 		<script type="module" src="./js/db.js"></script>
 		<script type="module" src="./js/authentication.js"></script>
