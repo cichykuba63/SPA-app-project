@@ -7,9 +7,7 @@ import {
 	doc,
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"
 
-const AddFavPlaceBtn = document.getElementById("add-place-btn")
-
-async function fetchFavouritePlaces() {
+export async function fetchFavouritePlaces() {
 	try {
 		const querySnapshot = await getDocs(collection(db, "favourite_places"))
 		if (querySnapshot.empty) {
@@ -28,7 +26,7 @@ async function fetchFavouritePlaces() {
 	}
 }
 
-async function deleteFavouritePlace(id) {
+export async function deleteFavouritePlace(id) {
 	try {
 		await deleteDoc(doc(db, "favourite_places", id))
 		await displayFavouritePlaces()
@@ -37,7 +35,7 @@ async function deleteFavouritePlace(id) {
 	}
 }
 
-async function displayFavouritePlaces() {
+export async function displayFavouritePlaces() {
 	const places = await fetchFavouritePlaces()
 	const tableBody = document.getElementById("favourite-places-table-data")
 
@@ -97,18 +95,22 @@ export async function addFavouritePlace(name, location, description) {
 
 export async function addUserLocation(name, latitude, longitude) {
 	try {
-		await addDoc(collection(db, "users_locations"), {
+		const docRef = await addDoc(collection(db, "users_locations"), {
 			name: name,
 			location: new GeoPoint(latitude, longitude),
 		})
 		console.log("Lokalizacja użytkownika została zapisana.")
+		return docRef.id
 	} catch (error) {
 		console.error("Błąd przy zapisie lokalizacji użytkownika: ", error)
 	}
 }
 
-window.onload = displayFavouritePlaces
-
-AddFavPlaceBtn.addEventListener("click", () => {
-	displayFavouritePlaces()
-})
+export async function deleteUserLocation(docId) {
+	try {
+		await deleteDoc(doc(db, "users_locations", docId))
+		console.log("Lokalizacja użytkownika została usunięta.")
+	} catch (error) {
+		console.error("Błąd przy usuwaniu lokalizacji użytkownika: ", error)
+	}
+}

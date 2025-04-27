@@ -1,5 +1,5 @@
 import { auth } from "./firebase.js"
-import { addFavouritePlace, addUserLocation } from "./db.js"
+import { addFavouritePlace, addUserLocation, deleteUserLocation, displayFavouritePlaces } from "./db.js"
 
 document.addEventListener("DOMContentLoaded", () => {
 	// login
@@ -17,9 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
 	const favPlacesBtn = document.getElementById("favourite-places")
 	const favPlacesTable = document.getElementById("favPlaces-box")
 	const AddFavPlaceform = document.getElementById("add-favourite-place-form")
+	const AddFavPlaceBtn = document.getElementById("add-place-btn")
 	let map
 	let marker
 	let userPosition
+	let locationDocId = null
 
 	function validatePassword(password) {
 		const length = password.length >= 6
@@ -99,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}).addTo(map)
 	}
 
-	gpsButton?.addEventListener("click", e => {
+	gpsButton.addEventListener("click", async e => {
 		e.preventDefault()
 
 		if (gpsButton.dataset.status === "enabled") {
@@ -111,13 +113,19 @@ document.addEventListener("DOMContentLoaded", () => {
 			map.setView([52.2297, 21.0122], 13)
 			gpsButton.textContent = "Enable GPS"
 			gpsButton.dataset.status = "disabled"
+
+			if (locationDocId) {
+				await deleteUserLocation(locationDocId)
+				locationDocId = null
+			}
+
 			return
 		}
 
 		// Włącz GPS
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(
-				position => {
+				async position => {
 					const user = auth.currentUser
 					const email = user ? user.email : "Nieznany użytkownik"
 					const { latitude, longitude } = position.coords
@@ -133,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					gpsButton.textContent = "Disable GPS"
 					gpsButton.dataset.status = "enabled"
 
-					addUserLocation(email, latitude, longitude)
+					locationDocId = await addUserLocation(email, latitude, longitude)
 				},
 				error => {
 					alert("Nie udało się pobrać lokalizacji.")
@@ -143,5 +151,11 @@ document.addEventListener("DOMContentLoaded", () => {
 		} else {
 			alert("Twoja przeglądarka nie wspiera geolokalizacji.")
 		}
+	})
+
+	displayFavouritePlaces()
+
+	AddFavPlaceBtn.addEventListener("click", () => {
+		displayFavouritePlaces()
 	})
 })
