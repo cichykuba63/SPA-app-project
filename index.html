@@ -107,11 +107,13 @@
 				<div class="container favPlaces-box d-none" id="favPlaces-box">
 					<table class="table favPlacesTable table-striped-columns" id="fav-places-table">
 						<thead>
-							<th>#</th>
-							<th>Nazwa miejsca</th>
-							<th>Współrzędne</th>
+							<tr>
+								<th>#</th>
+								<th>Nazwa miejsca</th>
+								<th>Współrzędne</th>
+							</tr>
 						</thead>
-						<tbody></tbody>
+						<tbody id="favourite-places-table-data"></tbody>
 					</table>
 					<div class="add-favourite-place-form">
 						<h2 class="add-fav-place-title">Add your favourite place</h2>
@@ -136,6 +138,7 @@
 			</main>
 		</div>
 		<script src="./js/main.js"></script>
+		<script type="module" src="./js/firebase.js"></script>
 		<script type="module" src="./js/db.js"></script>
 		<script type="module" src="./js/authentication.js"></script>
 	</body>

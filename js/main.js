@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			// Wyświetl komunikat o sukcesie
 			document.getElementById("form-message").textContent = "Miejsce zostało dodane!"
-			form.reset() // Zresetuj formularz
+			AddFavPlaceform.reset(); // Zresetuj formularz
 		} catch (error) {
 			// Obsłuż błędy i wyświetl je
 			document.getElementById("form-message").textContent = "Błąd: " + error.message
