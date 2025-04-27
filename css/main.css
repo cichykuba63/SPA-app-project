@@ -171,12 +171,14 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 70px);
 }
 .main-app .main .map {
+  margin-top: 20px;
   border: 2px solid #000;
-  max-width: 1300px;
-  max-height: 900px;
+  height: 80vh;
+  width: 90vw;
+  max-width: 1200px;
+  max-height: calc(100vh - 100px);
 }
 .main-app .main .text-bottom {
   margin-top: 15px;
