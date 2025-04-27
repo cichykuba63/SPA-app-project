@@ -113,28 +113,28 @@
 					</thead>
 				</table>
 				<div class="add-favourite-place-form">
-					<h2>Add your favourite place</h2>
+					<h2 class="add-fav-place-title">Add your favourite place</h2>
 					<form id="add-favourite-place-form">
 						<div>
-							<label for="place-name">Name of Place:</label>
+							<label for="place-name" class="label-desc">Name of Place:</label>
 							<input type="text" id="place-name" required />
 						</div>
 						<div>
-							<label for="place-location">Localization:</label>
+							<label for="place-location" class="label-desc">Localization:</label>
 							<input type="text" id="place-location" required />
 						</div>
 						<div>
-							<label for="place-description">Description:</label>
+							<label for="place-description" class="label-desc">Description:</label>
 							<textarea id="place-description" required></textarea>
 						</div>
-						<button type="submit" id="add-place-btn">Add Place</button>
+						<button type="submit" class="btn" id="add-place-btn">Add Place</button>
 					</form>
 					<div id="form-message"></div>
 				</div>
 			</main>
 		</div>
 		<script src="./js/main.js"></script>
-		<script src="./js/db.js"></script>
+		<script type="module" src="./js/db.js"></script>
 		<script type="module" src="./js/authentication.js"></script>
 	</body>
 </html>

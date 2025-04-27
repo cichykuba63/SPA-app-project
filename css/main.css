@@ -187,6 +187,20 @@ body {
   margin-top: 20px;
   font-size: 1.1rem;
 }
+.main-app .main .add-favourite-place-form {
+  margin-top: 15px;
+  border: 1px solid #333;
+  padding: 15px;
+}
+.main-app .main .add-favourite-place-form .add-fav-place-title {
+  font-size: 1.5rem;
+  color: #006c35;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.main-app .main .add-favourite-place-form .label-desc {
+  font-size: 1.5rem;
+}
 
 @media (width >= 576px) {
   .logo {

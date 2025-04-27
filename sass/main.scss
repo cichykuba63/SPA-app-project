@@ -155,6 +155,23 @@ body {
 			margin-top: 20px;
 			font-size: 1.1rem;
 		}
+
+		.add-favourite-place-form {
+			margin-top: 15px;
+			border: 1px solid #333;
+			padding: 15px;
+
+			.add-fav-place-title {
+				font-size: 1.5rem;
+				color: $main-color;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+			}
+
+			.label-desc {
+				font-size: 1.5rem;
+			}
+		}
 	}
 }
 
