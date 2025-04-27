@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const gpsButton = document.getElementById("enable-gps")
 	const favPlacesBtn = document.getElementById("favourite-places")
 	const favPlacesTable = document.getElementById("table-box")
+	const form = document.getElementById("add-favourite-place-form")
 	let map
 	let marker
 	let userPosition
@@ -25,6 +26,27 @@ document.addEventListener("DOMContentLoaded", () => {
 		const special = /[!@#$%^&*(),.?":{}|<>]/.test(password)
 		return length && upper && lower && digit && special
 	}
+
+	form.addEventListener("submit", async e => {
+		e.preventDefault() // Zapobiega domyślnej akcji formularza
+
+		// Pobierz dane z formularza
+		const name = document.getElementById("place-name").value
+		const location = document.getElementById("place-location").value
+		const description = document.getElementById("place-description").value
+
+		try {
+			// Wywołaj funkcję z db.js do dodania nowego miejsca
+			await addFavouritePlace(name, location, description)
+
+			// Wyświetl komunikat o sukcesie
+			document.getElementById("form-message").textContent = "Miejsce zostało dodane!"
+			form.reset() // Zresetuj formularz
+		} catch (error) {
+			// Obsłuż błędy i wyświetl je
+			document.getElementById("form-message").textContent = "Błąd: " + error.message
+		}
+	})
 
 	favPlacesBtn.addEventListener("click", () => {
 		favPlacesTable.classList.toggle("d-none")
