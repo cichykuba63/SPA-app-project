@@ -193,13 +193,34 @@ body {
   padding: 15px;
 }
 .main-app .main .add-favourite-place-form .add-fav-place-title {
-  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-size: 1.6rem;
+  font-weight: bold;
   color: #006c35;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-.main-app .main .add-favourite-place-form .label-desc {
+.main-app .main .add-favourite-place-form .label-box {
+  display: flex;
+  flex-direction: column;
+  margin: 10px auto;
+}
+.main-app .main .add-favourite-place-form .label-box input, .main-app .main .add-favourite-place-form .label-box textarea {
+  padding: 5px;
+  border: 1px solid #000;
+}
+.main-app .main .add-favourite-place-form .add-place-btn {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 10px;
   font-size: 1.5rem;
+  background-color: #006c35;
+  color: #f5fffa;
+  font-weight: bold;
+}
+.main-app .main .add-favourite-place-form .label-desc {
+  font-size: 1.6rem;
 }
 
 @media (width >= 576px) {
