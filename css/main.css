@@ -77,17 +77,21 @@ body {
   font-size: 2.5rem;
 }
 
+.form-control,
 .form-control {
   padding: 10px;
+  font-size: 1.3rem;
 }
-.form-control::-moz-placeholder {
+.form-control::-moz-placeholder, .form-control::-moz-placeholder {
   color: #006c35;
   font-size: 1.3rem;
 }
+.form-control::placeholder,
 .form-control::placeholder {
   color: #006c35;
   font-size: 1.3rem;
 }
+.form-control:focus,
 .form-control:focus {
   box-shadow: none;
   border: 2px solid #000;

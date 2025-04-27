@@ -44,14 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (!isValid) {
 			e.preventDefault()
 			passwordError.textContent =
-				"Password must be at least 8 characters, include uppercase, lowercase, a number and special character."
+				"Password must be at least 6 characters, include uppercase, lowercase, a number and special character."
 		} else {
 			passwordError.textContent = ""
 		}
 	})
 
 	function validatePassword(password) {
-		const length = password.length >= 8
+		const length = password.length >= 6
 		const upper = /[A-Z]/.test(password)
 		const lower = /[a-z]/.test(password)
 		const digit = /\d/.test(password)
