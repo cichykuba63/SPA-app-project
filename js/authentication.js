@@ -68,10 +68,10 @@ document.getElementById("log-out").addEventListener("click", async () => {
 // Obserwowanie stanu użytkownika
 onAuthStateChanged(auth, user => {
 	if (user) {
-		document.querySelector(".login-box").classList.add("d-none")
+		document.querySelector(".box").classList.add("d-none")
 		document.querySelector(".main-app").classList.remove("d-none")
 	} else {
-		document.querySelector(".login-box").classList.remove("d-none")
+		document.querySelector(".box").classList.remove("d-none")
 		document.querySelector(".main-app").classList.add("d-none")
 	}
 })
