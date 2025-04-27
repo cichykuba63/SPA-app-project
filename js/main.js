@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const mapContainer = document.getElementById("map")
 	const gpsButton = document.getElementById("enable-gps")
 	const favPlacesBtn = document.getElementById("favourite-places")
-	const favPlacesTable = document.getElementById("table-box")
+	const favPlacesTable = document.getElementById("favPlaces-box")
 	const AddFavPlaceform = document.getElementById("add-favourite-place-form")
 	let map
 	let marker
@@ -27,8 +27,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		return length && upper && lower && digit && special
 	}
 
+	favPlacesBtn.addEventListener("click", () => {
+		favPlacesTable.classList.toggle("d-none")
+	})
+
 	AddFavPlaceform.addEventListener("submit", async e => {
-		e.preventDefault() 
+		e.preventDefault()
 
 		const name = document.getElementById("place-name").value
 		const location = document.getElementById("place-location").value
@@ -45,10 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			// Obsłuż błędy i wyświetl je
 			document.getElementById("form-message").textContent = "Błąd: " + error.message
 		}
-	})
-
-	favPlacesBtn.addEventListener("click", () => {
-		favPlacesTable.classList.toggle("d-none")
 	})
 
 	createAccountBtn.addEventListener("click", e => {

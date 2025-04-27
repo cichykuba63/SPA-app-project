@@ -104,32 +104,33 @@
 			<main class="main">
 				<div class="map" id="map" style="height: 90%; width: 90%"></div>
 				<span class="text-bottom">Map data from OpenStreetMap</span>
-				<div class="table-box d-none"></div>
-				<table class="table table-striped" id="fav-places-table">
-					<thead>
-						<th>#</th>
-						<th>Nazwa miejsca</th>
-						<th>Współrzędne</th>
-					</thead>
-				</table>
-				<div class="add-favourite-place-form">
-					<h2 class="add-fav-place-title">Add your favourite place</h2>
-					<form id="add-favourite-place-form">
-						<div class="label-box">
-							<label for="place-name" class="label-desc">Name of Place:</label>
-							<input type="text" id="place-name" required />
-						</div>
-						<div class="label-box">
-							<label for="place-location" class="label-desc">Localization:</label>
-							<input type="text" id="place-location" required />
-						</div>
-						<div class="label-box">
-							<label for="place-description" class="label-desc">Description:</label>
-							<textarea id="place-description" required></textarea>
-						</div>
-						<button type="submit" class="btn add-place-btn" id="add-place-btn">Add Place</button>
-					</form>
-					<div id="form-message"></div>
+				<div class="favPlaces-box d-none" id="favPlaces-box">
+					<table class="table table-striped" id="fav-places-table">
+						<thead>
+							<th>#</th>
+							<th>Nazwa miejsca</th>
+							<th>Współrzędne</th>
+						</thead>
+					</table>
+					<div class="add-favourite-place-form">
+						<h2 class="add-fav-place-title">Add your favourite place</h2>
+						<form id="add-favourite-place-form">
+							<div class="label-box">
+								<label for="place-name" class="label-desc">Name of Place:</label>
+								<input type="text" id="place-name" required />
+							</div>
+							<div class="label-box">
+								<label for="place-location" class="label-desc">Localization:</label>
+								<input type="text" id="place-location" required />
+							</div>
+							<div class="label-box">
+								<label for="place-description" class="label-desc">Description:</label>
+								<textarea id="place-description" required></textarea>
+							</div>
+							<button type="submit" class="btn add-place-btn" id="add-place-btn">Add Place</button>
+						</form>
+						<div id="form-message"></div>
+					</div>
 				</div>
 			</main>
 		</div>
