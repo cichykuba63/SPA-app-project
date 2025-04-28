@@ -1,4 +1,4 @@
-const staticCacheUEK = "dev-NP"
+const staticCacheNP = "dev-NP"
 const assets = [
   "/",
   "/index.html",
@@ -9,7 +9,7 @@ const assets = [
 
 self.addEventListener("install", installEvent => {
   installEvent.waitUntil(
-    caches.open(staticCacheUEK).then(cache => {
+    caches.open(staticCacheNP).then(cache => {
       cache.addAll(assets)
     })
   )
