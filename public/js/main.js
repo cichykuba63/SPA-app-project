@@ -18,10 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	const favPlacesTable = document.getElementById("favPlaces-box")
 	const AddFavPlaceform = document.getElementById("add-favourite-place-form")
 	const AddFavPlaceBtn = document.getElementById("add-place-btn")
+	const toggleFlashlightBtn = document.getElementById("toggle-flashlight")
 	let map
 	let marker
 	let userPosition
 	let locationDocId = null
+	let track
 
 	function validatePassword(password) {
 		const length = password.length >= 6
@@ -157,5 +159,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	AddFavPlaceBtn.addEventListener("click", () => {
 		displayFavouritePlaces()
+	})
+	// flashlight toggle
+	toggleFlashlightBtn?.addEventListener("click", async () => {
+		try {
+			if (!track) {
+				const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+				track = stream.getVideoTracks()[0]
+			}
+
+			const capabilities = track.getCapabilities()
+			if (!capabilities.torch) {
+				alert("Twoje urządzenie nie obsługuje latarki.")
+				return
+			}
+
+			const settings = track.getSettings()
+			await track.applyConstraints({
+				advanced: [{ torch: !settings.torch }]
+			})
+		} catch (error) {
+			console.error("Błąd latarki:", error)
+			alert("Nie można włączyć/wyłączyć latarki.")
+		}
 	})
 })
