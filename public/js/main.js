@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
         flashlightInterval = setInterval(async () => {
           flashlightOn = !flashlightOn;
           await track.applyConstraints({ advanced: [{ torch: flashlightOn }] });
-        }, 1000);
+        }, 500);
         toggleFlashlightBtn.textContent = "Stop Flashlight Blinking";
       }
     } catch (error) {
