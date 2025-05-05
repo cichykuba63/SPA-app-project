@@ -1,5 +1,61 @@
 import { db, GeoPoint } from "./firebase.js"
-import { collection, addDoc, getDocs, deleteDoc, updateDoc, doc, query, where } from "./firebase.js"
+import { collection, addDoc, getDocs, deleteDoc, updateDoc, doc, query, where, Timestamp } from "./firebase.js"
+
+// Dodanie lokalizacji użytkownika do kolekcji user_historic_locations
+export async function addHistoricUserLocation(email, latitude, longitude) {
+	try {
+		const timestamp = Timestamp.now()
+
+		const docRef = await addDoc(collection(db, "user_historic_locations"), {
+			email: email,
+			location: new GeoPoint(latitude, longitude),
+			timestamp: timestamp,
+		})
+		console.log("Lokalizacja użytkownika została zapisana.")
+	} catch (error) {
+		console.error("Błąd przy zapisie lokalizacji historycznej użytkownika: ", error)
+	}
+}
+
+// Funkcja do pobierania i wyświetlania historycznych lokalizacji użytkowników
+export async function fetchAndDisplayHistoricLocations() {
+	try {
+		const querySnapshot = await getDocs(collection(db, "user_historic_locations"))
+		const tableBody = document.getElementById("historic-locations-table-data")
+
+		// Czyścimy tabelę przed dodaniem nowych danych
+		tableBody.innerHTML = ""
+
+		querySnapshot.docs.forEach((docSnap, index) => {
+			const data = docSnap.data()
+			const row = document.createElement("tr")
+
+			// Numeracja
+			const cell1 = document.createElement("td")
+			cell1.textContent = index + 1
+			row.appendChild(cell1)
+
+			// Email użytkownika
+			const cell2 = document.createElement("td")
+			cell2.textContent = data.email
+			row.appendChild(cell2)
+
+			// Lokalizacja
+			const cell3 = document.createElement("td")
+			cell3.textContent = `Lat: ${data.location.latitude}, Lng: ${data.location.longitude}`
+			row.appendChild(cell3)
+
+			// Czas
+			const cell4 = document.createElement("td")
+			cell4.textContent = data.timestamp.toDate().toLocaleString() // Konwertowanie timestamp na czytelny format
+			row.appendChild(cell4)
+
+			tableBody.appendChild(row)
+		})
+	} catch (error) {
+		console.error("Błąd podczas pobierania danych historycznych: ", error)
+	}
+}
 
 export async function fetchFavouritePlaces() {
 	try {

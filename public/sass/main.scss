@@ -144,7 +144,7 @@ body {
 			height: 80vh;
 			width: 90vw;
 			max-width: 1200px;
-			max-height: calc(100vh - 100px)
+			max-height: calc(100vh - 100px);
 		}
 
 		.text-bottom {
@@ -218,12 +218,85 @@ body {
 				font-size: 1.6rem;
 			}
 		}
+
+		.historic-locations-table {
+			width: 90%; // Szerokość na urządzeniach mobilnych
+			max-width: 900px; // Maksymalna szerokość
+			margin: 30px auto;
+			border-collapse: collapse;
+			background-color: white;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+			border-radius: 10px;
+			text-align: center;
+			font-size: 1.1rem;
+			overflow: hidden;
+
+			th {
+				background-color: $secondary-color;
+				color: $main-color;
+				padding: 8px 12px;
+				font-weight: bold;
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+				border-bottom: 2px solid darken($secondary-color, 15%);
+			}
+
+			td {
+				padding: 7px 10px;
+				color: #333;
+				border-bottom: 1px solid #ddd;
+			}
+
+			tr:nth-child(even) {
+				background-color: $cream;
+			}
+
+			tr:hover {
+				background-color: lighten($cream, 10%);
+			}
+
+			caption {
+				caption-side: top;
+				font-size: 1.8rem;
+				font-weight: bold;
+				color: white;
+				margin-bottom: 10px;
+			}
+		}
+
+		.fetch-historic-locations {
+			display: block;
+			margin: 20px auto;
+			padding: 10px 20px;
+			font-size: 1.5rem;
+			font-weight: bold;
+			background-color: $secondary-color;
+			color: $main-color;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+
+			&:hover {
+				background-color: darken($secondary-color, 10%);
+			}
+		}
 	}
 }
 
 @media (width >= 576px) {
 	.logo {
 		font-size: 2.5rem;
+	}
+}
+
+@media (width >= 600px) {
+	.main-app {
+		.main {
+			.historic-locations-table {
+				font-size: 1.3rem;
+			}
+		}
 	}
 }
 

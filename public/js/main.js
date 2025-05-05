@@ -5,6 +5,8 @@ import {
 	deleteUserLocation,
 	displayFavouritePlaces,
 	fetchUserLocations,
+	fetchAndDisplayHistoricLocations,
+	addHistoricUserLocation,
 } from "./db.js"
 
 let map = null
@@ -140,6 +142,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 		}
 	}
 
+	// Obsługa kliknięcia przycisku "Pokaż historię lokalizacji"
+	document.getElementById("fetch-historic-locations").addEventListener("click", async () => {
+		await fetchAndDisplayHistoricLocations()
+	})
+
 	// Obsługa kliknięcia w przycisk "show-people"
 	showPeopleBtn.addEventListener("click", () => {
 		if (gpsButton.dataset.status !== "enabled") {
@@ -245,6 +252,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 					locationDocId = await addUserLocation(email, latitude, longitude)
 					localStorage.setItem("userLocationDocId", locationDocId)
+
+					// Zapisz historyczną lokalizację
+					if (user) {
+						await addHistoricUserLocation(email, latitude, longitude)
+					}
 				},
 				error => {
 					alert("Unable to retrieve location.")

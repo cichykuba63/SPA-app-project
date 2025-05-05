@@ -18,6 +18,7 @@ import {
 	doc,
 	query,
 	where,
+	Timestamp
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"
 
 // Konfiguracja Firebase
@@ -56,4 +57,5 @@ export {
 	signInWithPopup,
 	signOut,
 	onAuthStateChanged,
+	Timestamp
 }

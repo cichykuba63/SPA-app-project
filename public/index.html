@@ -4,7 +4,9 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>NavPoint</title>
-    <link rel="icon" href="https://f-droid.org/repo/app.organicmaps/en-US/icon_dE7f4P95-uKZwu7cI89Q0xSi_-gvU4DD-XnLoDG9RLg=.png?fbclid=IwY2xjawJobV9leHRuA2FlbQIxMAABHt9LGRH4IBrd4blp4LZJ6gxby2cfBreyR3-a3QRoswIBy5kthiXlKn-zOqNa_aem_lMPG233bk_v4hoJdN_Jlqw">
+		<link
+			rel="icon"
+			href="https://f-droid.org/repo/app.organicmaps/en-US/icon_dE7f4P95-uKZwu7cI89Q0xSi_-gvU4DD-XnLoDG9RLg=.png?fbclid=IwY2xjawJobV9leHRuA2FlbQIxMAABHt9LGRH4IBrd4blp4LZJ6gxby2cfBreyR3-a3QRoswIBy5kthiXlKn-zOqNa_aem_lMPG233bk_v4hoJdN_Jlqw" />
 		<!-- google fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -63,7 +65,7 @@
 						<input type="password" class="form-control" id="register-password" placeholder="Create password" />
 						<p class="form-text" id="register-text">
 							Password must be at least 6 characters, include uppercase, lowercase, and a special character.
-            </p>
+						</p>
 						<div id="password-error" class="text-danger mt-2" style="font-size: 1.3rem"></div>
 					</div>
 					<button type="submit" class="btn login-btn w-100 mb-3" id="register-btn">CREATE ACCOUNT</button>
@@ -138,6 +140,22 @@
 						<div id="form-message"></div>
 					</div>
 				</div>
+				<table class="historic-locations-table" id="historic-locations-table">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Email</th>
+							<th>Lokalizacja</th>
+							<th>Czas</th>
+						</tr>
+					</thead>
+					<tbody class="historic-locations-table-data" id="historic-locations-table-data">
+						<!-- Wiersze będą dodawane dynamicznie -->
+					</tbody>
+				</table>
+
+				<!-- Przycisk do pobierania historii lokalizacji -->
+				<button class="fetch-historic-locations" id="fetch-historic-locations">Pokaż historię lokalizacji</button>
 			</main>
 		</div>
 		<script type="module" src="./js/main.js"></script>
