@@ -7,7 +7,7 @@ import {
 	signInWithPopup,
 	signOut,
 	onAuthStateChanged,
-} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"
+} from "./firebase.js"
 
 function updateBackgroundBasedOnBox() {
 	const box = document.querySelector(".box")
@@ -58,6 +58,15 @@ function logoutUser() {
 	deleteAndLogout()
 }
 
+function validatePassword(password) {
+	const length = password.length >= 6
+	const upper = /[A-Z]/.test(password)
+	const lower = /[a-z]/.test(password)
+	const digit = /\d/.test(password)
+	const special = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+	return length && upper && lower && digit && special
+}
+
 // Logowanie email/hasło
 document.getElementById("login-btn").addEventListener("click", async e => {
 	e.preventDefault()
@@ -73,11 +82,23 @@ document.getElementById("login-btn").addEventListener("click", async e => {
 // Rejestracja
 document.getElementById("register-btn").addEventListener("click", async e => {
 	e.preventDefault()
+
 	const email = document.getElementById("register-email").value
 	const password = document.getElementById("register-password").value
+	const smallRegisterText = document.getElementById("register-text")
+
+	if (!validatePassword(password)) {
+		smallRegisterText.classList.add("text-danger")
+		smallRegisterText.classList.add("text-uppercase")
+		return
+	} else {
+		smallRegisterText.classList.remove("text-danger")
+		smallRegisterText.classList.remove("text-uppercase")
+	}
+
 	try {
 		await createUserWithEmailAndPassword(auth, email, password)
-		alert("Konto utworzone. Zaloguj się.")
+		alert("Konto utworzone.")
 	} catch (error) {
 		alert("Błąd rejestracji: " + error.message)
 	}

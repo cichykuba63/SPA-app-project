@@ -157,16 +157,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 		}
 	})
 
-	// login
-	function validatePassword(password) {
-		const length = password.length >= 6
-		const upper = /[A-Z]/.test(password)
-		const lower = /[a-z]/.test(password)
-		const digit = /\d/.test(password)
-		const special = /[!@#$%^&*(),.?":{}|<>]/.test(password)
-		return length && upper && lower && digit && special
-	}
-
 	createAccountBtn.addEventListener("click", e => {
 		e.preventDefault()
 		loginForm.classList.add("d-none")

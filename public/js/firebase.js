@@ -1,7 +1,24 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"
-import { GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"
+import {
+	GoogleAuthProvider,
+	getAuth,
+	signInWithEmailAndPassword,
+	createUserWithEmailAndPassword,
+	signInWithPopup,
+	signOut,
+	onAuthStateChanged,
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"
 import { getFirestore, GeoPoint } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"
+import {
+	collection,
+	addDoc,
+	getDocs,
+	deleteDoc,
+	updateDoc,
+	doc,
+	query,
+	where,
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"
 
 // Konfiguracja Firebase
 const firebaseConfig = {
@@ -19,4 +36,24 @@ const auth = getAuth(app)
 const provider = new GoogleAuthProvider()
 const db = getFirestore(app)
 
-export {app, auth, provider, db, GeoPoint}
+export {
+	app,
+	auth,
+	provider,
+	db,
+	GeoPoint,
+	collection,
+	addDoc,
+	getDocs,
+	deleteDoc,
+	updateDoc,
+	doc,
+	query,
+	where,
+	getAuth,
+	signInWithEmailAndPassword,
+	createUserWithEmailAndPassword,
+	signInWithPopup,
+	signOut,
+	onAuthStateChanged,
+}

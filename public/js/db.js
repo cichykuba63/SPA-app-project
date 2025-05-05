@@ -1,14 +1,5 @@
 import { db, GeoPoint } from "./firebase.js"
-import {
-	collection,
-	addDoc,
-	getDocs,
-	deleteDoc,
-	updateDoc,
-	doc,
-	query,
-	where
-} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"
+import { collection, addDoc, getDocs, deleteDoc, updateDoc, doc, query, where } from "./firebase.js"
 
 export async function fetchFavouritePlaces() {
 	try {
