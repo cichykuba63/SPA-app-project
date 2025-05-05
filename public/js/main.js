@@ -1,5 +1,11 @@
 import { auth } from "./firebase.js"
-import { addFavouritePlace, addUserLocation, deleteUserLocation, displayFavouritePlaces, fetchUserLocations } from "./db.js"
+import {
+	addFavouritePlace,
+	addUserLocation,
+	deleteUserLocation,
+	displayFavouritePlaces,
+	fetchUserLocations,
+} from "./db.js"
 
 document.addEventListener("DOMContentLoaded", () => {
 	// login
@@ -16,24 +22,20 @@ document.addEventListener("DOMContentLoaded", () => {
 	const gpsButton = document.getElementById("enable-gps")
 	const favPlacesBtn = document.getElementById("favourite-places")
 	const favPlacesTable = document.getElementById("favPlaces-box")
-	const AddFavPlaceform = document.getElementById("add-favourite-place-form")
-	const AddFavPlaceBtn = document.getElementById("add-place-btn")
+	const addFavPlaceform = document.getElementById("add-favourite-place-form")
+	const addFavPlaceBtn = document.getElementById("add-place-btn")
 	const showPeopleBtn = document.getElementById("show-people")
+	const toggleFlashlightBtn = document.getElementById("toggle-flashlight")
+
 	let map
 	let marker
 	let userPosition
 	let userMarker
 	let peopleMarkers = [] // Przechowujemy markery użytkowników
 	let locationDocId = null
-
-	function validatePassword(password) {
-		const length = password.length >= 6
-		const upper = /[A-Z]/.test(password)
-		const lower = /[a-z]/.test(password)
-		const digit = /\d/.test(password)
-		const special = /[!@#$%^&*(),.?":{}|<>]/.test(password)
-		return length && upper && lower && digit && special
-	}
+	let track
+	let flashlightInterval = null
+	let flashlightOn = false
 
 	async function toggleUserMarkers() {
 		// Jeśli markery są już na mapie, usuwamy je
@@ -66,26 +68,14 @@ document.addEventListener("DOMContentLoaded", () => {
 		favPlacesTable.classList.toggle("d-none")
 	})
 
-	AddFavPlaceform.addEventListener("submit", async e => {
-		e.preventDefault() // Zapobiega domyślnej akcji formularza
-
-		// Pobieranie danych z formularza
-		const name = document.getElementById("place-name").value
-		const location = document.getElementById("place-location").value
-		const description = document.getElementById("place-description").value
-
-		try {
-			// Wywołaj funkcję z db.js do dodania nowego miejsca
-			await addFavouritePlace(name, location, description)
-
-			// Wyświetl komunikat o sukcesie
-			document.getElementById("form-message").textContent = "Miejsce zostało dodane!"
-			AddFavPlaceform.reset() // Zresetuj formularz
-		} catch (error) {
-			// Obsłuż błędy i wyświetl je
-			document.getElementById("form-message").textContent = "Błąd: " + error.message
-		}
-	})
+	function validatePassword(password) {
+		const length = password.length >= 6
+		const upper = /[A-Z]/.test(password)
+		const lower = /[a-z]/.test(password)
+		const digit = /\d/.test(password)
+		const special = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+		return length && upper && lower && digit && special
+	}
 
 	createAccountBtn.addEventListener("click", e => {
 		e.preventDefault()
@@ -112,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	})
 
-	// nav-btn show
 	navLinks.forEach(link => {
 		link.addEventListener("click", () => {
 			if (navbarCollapse.classList.contains("show")) {
@@ -122,9 +111,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		})
 	})
 
-	// map
 	if (mapContainer) {
-		map = L.map("map").setView([52.2297, 21.0122], 13) // Warszawa
+		map = L.map("map").setView([52.2297, 21.0122], 13)
 
 		L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -135,7 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		e.preventDefault()
 
 		if (gpsButton.dataset.status === "enabled") {
-			// Wyłącz GPS
 			if (marker) {
 				map.removeLayer(marker)
 				marker = null
@@ -148,16 +135,14 @@ document.addEventListener("DOMContentLoaded", () => {
 				await deleteUserLocation(locationDocId)
 				locationDocId = null
 			}
-
 			return
 		}
 
-		// Włącz GPS
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(
 				async position => {
 					const user = auth.currentUser
-					const email = user ? user.email : "Nieznany użytkownik"
+					const email = user ? user.email : "Unknown user"
 					const { latitude, longitude } = position.coords
 
 					userPosition = [latitude, longitude]
@@ -166,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 					if (marker) map.removeLayer(marker)
 
-					marker = L.marker(userPosition).addTo(map).bindPopup("Tu jesteś!").openPopup()
+					marker = L.marker(userPosition).addTo(map).bindPopup("You are here!").openPopup()
 
 					gpsButton.textContent = "Disable GPS"
 					gpsButton.dataset.status = "enabled"
@@ -174,18 +159,70 @@ document.addEventListener("DOMContentLoaded", () => {
 					locationDocId = await addUserLocation(email, latitude, longitude)
 				},
 				error => {
-					alert("Nie udało się pobrać lokalizacji.")
+					alert("Unable to retrieve location.")
 					console.error(error)
 				}
 			)
 		} else {
-			alert("Twoja przeglądarka nie wspiera geolokalizacji.")
+			alert("Geolocation is not supported by your browser.")
 		}
+	})
+
+	favPlacesBtn.addEventListener("click", () => {
+		favPlacesTable.classList.toggle("d-none")
+	})
+
+	addFavPlaceForm.addEventListener("submit", async e => {
+		e.preventDefault()
+		const name = document.getElementById("place-name").value
+		const location = document.getElementById("place-location").value
+		const description = document.getElementById("place-description").value
+
+		try {
+			await addFavouritePlace(name, location, description)
+			document.getElementById("form-message").textContent = "Place added successfully!"
+			addFavPlaceForm.reset()
+			displayFavouritePlaces()
+		} catch (error) {
+			document.getElementById("form-message").textContent = "Error: " + error.message
+		}
+	})
+
+	addFavPlaceBtn.addEventListener("click", () => {
+		displayFavouritePlaces()
 	})
 
 	displayFavouritePlaces()
 
-	AddFavPlaceBtn.addEventListener("click", () => {
-		displayFavouritePlaces()
+	toggleFlashlightBtn?.addEventListener("click", async () => {
+		try {
+			if (!track) {
+				const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+				track = stream.getVideoTracks()[0]
+			}
+
+			const capabilities = track.getCapabilities()
+			if (!capabilities.torch) {
+				alert("Your device does not support flashlight.")
+				return
+			}
+
+			if (flashlightInterval) {
+				clearInterval(flashlightInterval)
+				flashlightInterval = null
+				await track.applyConstraints({ advanced: [{ torch: false }] })
+				flashlightOn = false
+				toggleFlashlightBtn.textContent = "Start Flashlight Blinking"
+			} else {
+				flashlightInterval = setInterval(async () => {
+					flashlightOn = !flashlightOn
+					await track.applyConstraints({ advanced: [{ torch: flashlightOn }] })
+				}, 500)
+				toggleFlashlightBtn.textContent = "Stop Flashlight Blinking"
+			}
+		} catch (error) {
+			console.error("Flashlight error:", error)
+			alert("Error toggling flashlight.")
+		}
 	})
 })
