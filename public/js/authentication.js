@@ -1,4 +1,6 @@
 import { auth, provider } from "./firebase.js"
+import { deleteUserLocation } from "./db.js"
+import { removeMarker } from "./main.js"
 import {
 	signInWithEmailAndPassword,
 	createUserWithEmailAndPassword,
@@ -18,6 +20,41 @@ function updateBackgroundBasedOnBox() {
 	} else {
 		bodyTag.style.backgroundColor = "#ffddab"
 	}
+}
+function logoutUser() {
+	const docId = localStorage.getItem("userLocationDocId")
+	console.log("Wylogowywanie... docId:", docId)
+
+	const deleteAndLogout = async () => {
+		try {
+			// Usuwamy lokalizację z bazy danych
+			if (docId) {
+				await deleteUserLocation(docId)
+				console.log("Lokalizacja usunięta.")
+				localStorage.removeItem("userLocationDocId")
+			} else {
+				console.log("Brak docId w localStorage")
+			}
+
+			// Wylogowanie użytkownika
+			await signOut(auth)
+			console.log("Użytkownik wylogowany.")
+
+			// Resetowanie przycisku GPS
+			const gpsButton = document.getElementById("enable-gps")
+			if (gpsButton) {
+				gpsButton.textContent = "Enable GPS"
+				gpsButton.dataset.status = "disabled" // Zablokowanie ponownego uruchomienia GPS
+			}
+
+			// Usunięcie markera, jeśli jest
+			removeMarker();
+		} catch (error) {
+			console.error("Błąd podczas wylogowywania:", error)
+		}
+	}
+
+	deleteAndLogout()
 }
 
 // Logowanie email/hasło
@@ -57,7 +94,7 @@ document.getElementById("login-google-btn").addEventListener("click", async e =>
 
 // Wylogowanie
 document.getElementById("log-out").addEventListener("click", async () => {
-	await signOut(auth)
+	logoutUser()
 })
 
 // Obserwowanie stanu użytkownika

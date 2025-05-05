@@ -1,10 +1,13 @@
 import { db, GeoPoint } from "./firebase.js"
 import {
 	collection,
-	getDocs,
 	addDoc,
+	getDocs,
 	deleteDoc,
+	updateDoc,
 	doc,
+	query,
+	where
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"
 
 export async function fetchFavouritePlaces() {
@@ -92,24 +95,52 @@ export async function addFavouritePlace(name, location, description) {
 		throw new Error("Nie udało się dodać miejsca")
 	}
 }
-
-export async function addUserLocation(name, latitude, longitude) {
+// Dodaje lub aktualizuje lokalizację użytkownika
+export async function addUserLocation(email, latitude, longitude) {
 	try {
-		const docRef = await addDoc(collection(db, "users_locations"), {
-			name: name,
-			location: new GeoPoint(latitude, longitude),
-		})
-		console.log("Lokalizacja użytkownika została zapisana.")
-		return docRef.id
+		const q = query(collection(db, "users_locations"), where("name", "==", email))
+		const querySnapshot = await getDocs(q)
+
+		if (!querySnapshot.empty) {
+			// Lokalizacja już istnieje – aktualizuj
+			const docId = querySnapshot.docs[0].id
+			await updateDoc(doc(db, "users_locations", docId), {
+				location: new GeoPoint(latitude, longitude),
+			})
+			console.log("Zaktualizowano lokalizację użytkownika.")
+			return docId
+		} else {
+			// Lokalizacja nie istnieje – dodaj
+			const docRef = await addDoc(collection(db, "users_locations"), {
+				name: email,
+				location: new GeoPoint(latitude, longitude),
+			})
+			console.log("Dodano nową lokalizację użytkownika.")
+			return docRef.id
+		}
 	} catch (error) {
 		console.error("Błąd przy zapisie lokalizacji użytkownika: ", error)
 	}
 }
 
-export async function deleteUserLocation(docId) {
+// Usuwa lokalizację użytkownika (wg docId lub emaila bieżącego użytkownika)
+export async function deleteUserLocation(docId = null) {
 	try {
-		await deleteDoc(doc(db, "users_locations", docId))
-		console.log("Lokalizacja użytkownika została usunięta.")
+		if (docId) {
+			await deleteDoc(doc(db, "users_locations", docId))
+			console.log("Lokalizacja użytkownika została usunięta (po docId).")
+		} else {
+			const user = auth.currentUser
+			if (user) {
+				const q = query(collection(db, "users_locations"), where("name", "==", user.email))
+				const snapshot = await getDocs(q)
+
+				snapshot.forEach(async docSnap => {
+					await deleteDoc(doc(db, "users_locations", docSnap.id))
+					console.log("Lokalizacja użytkownika została usunięta (po emailu).")
+				})
+			}
+		}
 	} catch (error) {
 		console.error("Błąd przy usuwaniu lokalizacji użytkownika: ", error)
 	}

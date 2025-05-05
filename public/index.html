@@ -1,220 +1,157 @@
 <!DOCTYPE html>
 <html lang="pl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NavPoint</title>
-    <!-- google fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <!-- font awesome -->
-    <script
-      src="https://kit.fontawesome.com/7454208e0e.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- leaflet -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <!-- bootstrap -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="./css/main.css" />
-    <link rel="manifest" href="./manifest.json" />
-  </head>
-  <body>
-    <div class="box container vh-100">
-      <div class="login-box">
-        <div class="logo mb-4">
-          <img
-            src="https://f-droid.org/repo/app.organicmaps/en-US/icon_dE7f4P95-uKZwu7cI89Q0xSi_-gvU4DD-XnLoDG9RLg=.png?fbclid=IwY2xjawJobV9leHRuA2FlbQIxMAABHt9LGRH4IBrd4blp4LZJ6gxby2cfBreyR3-a3QRoswIBy5kthiXlKn-zOqNa_aem_lMPG233bk_v4hoJdN_Jlqw"
-            style="width: 150px; height: 150px"
-            alt="logo aplikacji - gps"
-          />
-          <span>NavPoint</span>
-        </div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>NavPoint</title>
+		<!-- google fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+			rel="stylesheet" />
+		<!-- font awesome -->
+		<script src="https://kit.fontawesome.com/7454208e0e.js" crossorigin="anonymous"></script>
+		<!-- leaflet -->
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+		<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+		<!-- bootstrap -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+			crossorigin="anonymous" />
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+			crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="./css/main.css" />
+		<link rel="manifest" href="./manifest.json" />
+	</head>
+	<body>
+		<div class="box container vh-100">
+			<div class="login-box">
+				<div class="logo mb-4">
+					<img
+						src="https://f-droid.org/repo/app.organicmaps/en-US/icon_dE7f4P95-uKZwu7cI89Q0xSi_-gvU4DD-XnLoDG9RLg=.png?fbclid=IwY2xjawJobV9leHRuA2FlbQIxMAABHt9LGRH4IBrd4blp4LZJ6gxby2cfBreyR3-a3QRoswIBy5kthiXlKn-zOqNa_aem_lMPG233bk_v4hoJdN_Jlqw"
+						style="width: 150px; height: 150px"
+						alt="logo aplikacji - gps" />
+					<span>NavPoint</span>
+				</div>
 
-        <form class="login-form">
-          <div class="mb-3">
-            <input
-              type="email"
-              class="form-control"
-              id="login-email"
-              placeholder="sample@email.com"
-            />
-          </div>
-          <div class="mb-3">
-            <input
-              type="password"
-              class="form-control"
-              id="login-password"
-              placeholder="**********"
-            />
-          </div>
-          <button type="submit" class="btn login-btn w-100 mb-3" id="login-btn">
-            LOG IN
-          </button>
+				<form class="login-form">
+					<div class="mb-3">
+						<input type="email" class="form-control" id="login-email" placeholder="sample@email.com" />
+					</div>
+					<div class="mb-3">
+						<input type="password" class="form-control" id="login-password" placeholder="**********" />
+					</div>
+					<button type="submit" class="btn login-btn w-100 mb-3" id="login-btn">LOG IN</button>
 
-          <a href="#" class="btn signup-link" id="create-account-btn"
-            >Don't have an account? Sign up now!</a
-          >
+					<a href="#" class="btn signup-link" id="create-account-btn">Don't have an account? Sign up now!</a>
 
-          <a href="#" class="btn signup-link" id="login-google-btn"
-            >Log in with &nbsp;<i class="fa-brands fa-google"></i
-          ></a>
-        </form>
-        <form class="register-form d-none">
-          <div class="mb-3">
-            <input
-              type="email"
-              class="form-control"
-              id="register-email"
-              placeholder="Enter your email"
-            />
-          </div>
-          <div class="mb-3">
-            <input
-              type="password"
-              class="form-control"
-              id="register-password"
-              placeholder="Create password"
-            />
-            <small class="form-text">
-              Password must be at least 6 characters, include uppercase,
-              lowercase, and a special character.
-            </small>
-            <div
-              id="password-error"
-              class="text-danger mt-2"
-              style="font-size: 1.3rem"
-            ></div>
-          </div>
-          <button
-            type="submit"
-            class="btn login-btn w-100 mb-3"
-            id="register-btn"
-          >
-            CREATE ACCOUNT
-          </button>
+					<a href="#" class="btn signup-link" id="login-google-btn"
+						>Log in with &nbsp;<i class="fa-brands fa-google"></i
+					></a>
+				</form>
+				<form class="register-form d-none">
+					<div class="mb-3">
+						<input type="email" class="form-control" id="register-email" placeholder="Enter your email" />
+					</div>
+					<div class="mb-3">
+						<input type="password" class="form-control" id="register-password" placeholder="Create password" />
+						<small class="form-text">
+							Password must be at least 6 characters, include uppercase, lowercase, and a special character.
+						</small>
+						<div id="password-error" class="text-danger mt-2" style="font-size: 1.3rem"></div>
+					</div>
+					<button type="submit" class="btn login-btn w-100 mb-3" id="register-btn">CREATE ACCOUNT</button>
 
-          <a href="#" class="btn signup-link" id="back-to-login-btn"
-            >Already have an account? Log in</a
-          >
-        </form>
-        <span class="text-bottom">Map data from OpenStreetMap</span>
-      </div>
-    </div>
-    <div class="main-app vh-100 d-none">
-      <nav class="nav navbar navbar-expand-lg">
-        <div class="container">
-          <s class="navbar-brand" href="#"
-            ><img
-              src="https://f-droid.org/repo/app.organicmaps/en-US/icon_dE7f4P95-uKZwu7cI89Q0xSi_-gvU4DD-XnLoDG9RLg=.png?fbclid=IwY2xjawJobV9leHRuA2FlbQIxMAABHt9LGRH4IBrd4blp4LZJ6gxby2cfBreyR3-a3QRoswIBy5kthiXlKn-zOqNa_aem_lMPG233bk_v4hoJdN_Jlqw"
-              style="width: 50px; height: 50px"
-              alt="logo aplikacji - gps"
-          /></s>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <button class="nav-link" id="enable-gps">Enable GPS</button>
-              <button class="nav-link" id="show-people">Show people</button>
-              <button class="nav-link" id="toggle-flashlight">Start Flashlight Blinking</button>
-              <button class="nav-link" id="favourite-places">
-                Favourite places
-              </button>
-              <button class="nav-link" id="log-out">Log out</button>
-            </div>
-          </div>
-        </div>
-      </nav>
-      <main class="main">
-        <div class="map" id="map"></div>
-        <span class="text-bottom">Map data from OpenStreetMap</span>
-        <div class="container favPlaces-box d-none" id="favPlaces-box">
-          <table
-            class="table favPlacesTable table-striped-columns"
-            id="fav-places-table"
-          >
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Name of place</th>
-                <th>Location</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody id="favourite-places-table-data"></tbody>
-          </table>
-          <div class="add-favourite-place-form">
-            <h2 class="add-fav-place-title">Add your favourite place</h2>
-            <form id="add-favourite-place-form">
-              <div class="label-box">
-                <label for="place-name" class="label-desc"
-                  >Name of Place:</label
-                >
-                <input type="text" id="place-name" required />
-              </div>
-              <div class="label-box">
-                <label for="place-location" class="label-desc">Location:</label>
-                <input type="text" id="place-location" required />
-              </div>
-              <div class="label-box">
-                <label for="place-description" class="label-desc"
-                  >Description:</label
-                >
-                <textarea id="place-description" required></textarea>
-              </div>
-              <button
-                type="submit"
-                class="btn add-place-btn"
-                id="add-place-btn"
-              >
-                Add Place
-              </button>
-            </form>
-            <div id="form-message"></div>
-          </div>
-        </div>
-      </main>
-    </div>
-    <script type="module" src="./js/main.js"></script>
-    <script type="module" src="./js/firebase.js"></script>
-    <script type="module" src="./js/db.js"></script>
-    <script type="module" src="./js/authentication.js"></script>
-    <script>
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", function () {
-          navigator.serviceWorker
-            .register("/serviceWorker.js")
-            .then((res) => console.log("service worker registered"))
-            .catch((err) => console.log("service worker not registered", err));
-        });
-      }
-    </script>
-  </body>
+					<a href="#" class="btn signup-link" id="back-to-login-btn">Already have an account? Log in</a>
+				</form>
+				<span class="text-bottom">Map data from OpenStreetMap</span>
+			</div>
+		</div>
+		<div class="main-app vh-100 d-none">
+			<nav class="nav navbar navbar-expand-lg">
+				<div class="container">
+					<s class="navbar-brand" href="#"
+						><img
+							src="https://f-droid.org/repo/app.organicmaps/en-US/icon_dE7f4P95-uKZwu7cI89Q0xSi_-gvU4DD-XnLoDG9RLg=.png?fbclid=IwY2xjawJobV9leHRuA2FlbQIxMAABHt9LGRH4IBrd4blp4LZJ6gxby2cfBreyR3-a3QRoswIBy5kthiXlKn-zOqNa_aem_lMPG233bk_v4hoJdN_Jlqw"
+							style="width: 50px; height: 50px"
+							alt="logo aplikacji - gps"
+					/></s>
+					<button
+						class="navbar-toggler"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#navbarNavAltMarkup"
+						aria-controls="navbarNavAltMarkup"
+						aria-expanded="false"
+						aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+						<div class="navbar-nav">
+							<button class="nav-link" id="enable-gps">Enable GPS</button>
+							<button class="nav-link" id="show-people">Show people</button>
+							<button class="nav-link" id="toggle-flashlight">Start Flashlight Blinking</button>
+							<button class="nav-link" id="favourite-places">Favourite places</button>
+							<button class="nav-link" id="log-out">Log out</button>
+						</div>
+					</div>
+				</div>
+			</nav>
+			<main class="main">
+				<div class="map" id="map"></div>
+				<span class="text-bottom">Map data from OpenStreetMap</span>
+				<div class="container favPlaces-box d-none" id="favPlaces-box">
+					<table class="table favPlacesTable table-striped-columns" id="fav-places-table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Name of place</th>
+								<th>Location</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody id="favourite-places-table-data"></tbody>
+					</table>
+					<div class="add-favourite-place-form">
+						<h2 class="add-fav-place-title">Add your favourite place</h2>
+						<form id="add-favourite-place-form">
+							<div class="label-box">
+								<label for="place-name" class="label-desc">Name of Place:</label>
+								<input type="text" id="place-name" required />
+							</div>
+							<div class="label-box">
+								<label for="place-location" class="label-desc">Location:</label>
+								<input type="text" id="place-location" required />
+							</div>
+							<div class="label-box">
+								<label for="place-description" class="label-desc">Description:</label>
+								<textarea id="place-description" required></textarea>
+							</div>
+							<button type="submit" class="btn add-place-btn" id="add-place-btn">Add Place</button>
+						</form>
+						<div id="form-message"></div>
+					</div>
+				</div>
+			</main>
+		</div>
+		<script type="module" src="./js/main.js"></script>
+		<script type="module" src="./js/firebase.js"></script>
+		<script type="module" src="./js/db.js"></script>
+		<script type="module" src="./js/authentication.js"></script>
+		<script>
+			if ("serviceWorker" in navigator) {
+				window.addEventListener("load", function () {
+					navigator.serviceWorker
+						.register("/serviceWorker.js")
+						.then(res => console.log("service worker registered"))
+						.catch(err => console.log("service worker not registered", err))
+				})
+			}
+		</script>
+	</body>
 </html>

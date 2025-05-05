@@ -7,8 +7,24 @@ import {
 	fetchUserLocations,
 } from "./db.js"
 
-document.addEventListener("DOMContentLoaded", () => {
-	// login
+let map = null
+let marker = null
+
+function removeMarker() {
+	if (marker && map) {
+		map.removeLayer(marker) // Usuwa marker z mapy
+		marker = null // Ustawia marker na null
+	}
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+	// Usuwanie lokalizacji z poprzedniej sesji
+	const previousLocationId = localStorage.getItem("userLocationDocId")
+	if (previousLocationId) {
+		await deleteUserLocation(previousLocationId)
+		localStorage.removeItem("userLocationDocId")
+	}
+
 	const loginForm = document.querySelector(".login-form")
 	const registerForm = document.querySelector(".register-form")
 	const createAccountBtn = document.getElementById("create-account-btn")
@@ -22,20 +38,29 @@ document.addEventListener("DOMContentLoaded", () => {
 	const gpsButton = document.getElementById("enable-gps")
 	const favPlacesBtn = document.getElementById("favourite-places")
 	const favPlacesTable = document.getElementById("favPlaces-box")
-	const addFavPlaceform = document.getElementById("add-favourite-place-form")
+	const addFavPlaceForm = document.getElementById("add-favourite-place-form")
 	const addFavPlaceBtn = document.getElementById("add-place-btn")
 	const showPeopleBtn = document.getElementById("show-people")
 	const toggleFlashlightBtn = document.getElementById("toggle-flashlight")
 
-	let map
-	let marker
-	let userPosition
-	let userMarker
+	let userPosition = null
 	let peopleMarkers = [] // Przechowujemy markery użytkowników
 	let locationDocId = null
 	let track
 	let flashlightInterval = null
 	let flashlightOn = false
+
+	// Zdarzenie przed przeładowaniem strony
+	window.addEventListener("beforeunload", async () => {
+		// Usuwamy lokalizację przed przeładowaniem strony
+		await deleteUserLocation(locationDocId)
+	})
+
+	// Zdarzenie przy zamknięciu przeglądarki
+	window.addEventListener("unload", async () => {
+		// Usuwamy lokalizację przy zamknięciu przeglądarki
+		await deleteUserLocation(locationDocId)
+	})
 
 	async function toggleUserMarkers() {
 		// Jeśli markery są już na mapie, usuwamy je
@@ -62,12 +87,15 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Obsługa kliknięcia w przycisk "show-people"
 	showPeopleBtn.addEventListener("click", () => {
 		toggleUserMarkers()
+
+		if (showPeopleBtn.textContent === "Show people") {
+			showPeopleBtn.textContent = "Hide people"
+		} else {
+			showPeopleBtn.textContent = "Show people"
+		}
 	})
 
-	favPlacesBtn.addEventListener("click", () => {
-		favPlacesTable.classList.toggle("d-none")
-	})
-
+	// login
 	function validatePassword(password) {
 		const length = password.length >= 6
 		const upper = /[A-Z]/.test(password)
@@ -111,6 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		})
 	})
 
+	// map
 	if (mapContainer) {
 		map = L.map("map").setView([52.2297, 21.0122], 13)
 
@@ -123,16 +152,15 @@ document.addEventListener("DOMContentLoaded", () => {
 		e.preventDefault()
 
 		if (gpsButton.dataset.status === "enabled") {
-			if (marker) {
-				map.removeLayer(marker)
-				marker = null
-			}
+			removeMarker()
+
 			map.setView([52.2297, 21.0122], 13)
 			gpsButton.textContent = "Enable GPS"
 			gpsButton.dataset.status = "disabled"
 
 			if (locationDocId) {
 				await deleteUserLocation(locationDocId)
+				localStorage.removeItem("userLocationDocId")
 				locationDocId = null
 			}
 			return
@@ -149,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 					map.setView(userPosition, 16)
 
-					if (marker) map.removeLayer(marker)
+					removeMarker()
 
 					marker = L.marker(userPosition).addTo(map).bindPopup("You are here!").openPopup()
 
@@ -157,6 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					gpsButton.dataset.status = "enabled"
 
 					locationDocId = await addUserLocation(email, latitude, longitude)
+					localStorage.setItem("userLocationDocId", locationDocId)
 				},
 				error => {
 					alert("Unable to retrieve location.")
@@ -168,6 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	})
 
+	// favourite places
 	favPlacesBtn.addEventListener("click", () => {
 		favPlacesTable.classList.toggle("d-none")
 	})
@@ -194,7 +224,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	displayFavouritePlaces()
 
-	toggleFlashlightBtn?.addEventListener("click", async () => {
+	// flashlight
+	toggleFlashlightBtn.addEventListener("click", async () => {
 		try {
 			if (!track) {
 				const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
@@ -226,3 +257,5 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	})
 })
+
+export { removeMarker }
