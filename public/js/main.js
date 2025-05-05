@@ -16,7 +16,7 @@ let peopleMarkers = []
 function removeMarker() {
 	if (marker && map) {
 		map.removeLayer(marker) // Usuwa marker z mapy
-		marker = null // Ustawia marker na null
+		marker = null
 	}
 }
 
@@ -83,13 +83,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 	let flashlightInterval = null
 	let flashlightOn = false
 
-	// Zdarzenie przed przeładowaniem strony
 	window.addEventListener("beforeunload", async () => {
 		// Usuwamy lokalizację przed przeładowaniem strony
 		await deleteUserLocation(locationDocId)
 	})
 
-	// Zdarzenie przy zamknięciu przeglądarki
 	window.addEventListener("unload", async () => {
 		// Usuwamy lokalizację przy zamknięciu przeglądarki
 		await deleteUserLocation(locationDocId)
@@ -97,9 +95,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 	async function toggleUserMarkers() {
 		if (gpsButton.dataset.status !== "enabled") {
-			// Jeśli lokalizacja nie jest włączona, wyświetlamy komunikat
 			alert("Aby zobaczyć użytkowników na mapie, musisz włączyć lokalizację.")
-			return // Zatrzymujemy dalsze wykonywanie funkcji
+			return
 		}
 		// Jeśli markery są już na mapie, usuwamy je
 		if (peopleMarkers.length > 0) {
@@ -142,18 +139,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 		}
 	}
 
-	// Obsługa kliknięcia przycisku "Pokaż historię lokalizacji"
 	document.getElementById("fetch-historic-locations").addEventListener("click", async () => {
 		await fetchAndDisplayHistoricLocations()
 	})
 
-	// Obsługa kliknięcia w przycisk "show-people"
 	showPeopleBtn.addEventListener("click", () => {
 		if (gpsButton.dataset.status !== "enabled") {
-			// Jeśli lokalizacja nie jest włączona, wyświetlamy komunikat i nie zmieniamy tekstu przycisku
 			alert("Aby zobaczyć użytkowników na mapie, musisz włączyć lokalizację.")
 		} else {
-			// Jeśli lokalizacja jest włączona, wywołujemy toggleUserMarkers
 			toggleUserMarkers()
 
 			if (showPeopleBtn.textContent === "Show people") {
@@ -253,7 +246,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 					locationDocId = await addUserLocation(email, latitude, longitude)
 					localStorage.setItem("userLocationDocId", locationDocId)
 
-					// Zapisz historyczną lokalizację
 					if (user) {
 						await addHistoricUserLocation(email, latitude, longitude)
 					}
