@@ -1,5 +1,5 @@
 import { auth, provider } from "./firebase.js"
-import { deleteUserLocation, fetchAndDisplayHistoricLocations } from "./db.js"
+import { deleteUserLocation } from "./db.js"
 import { removeMarker, clearPeopleMarkers } from "./main.js"
 import {
 	signInWithEmailAndPassword,
@@ -118,23 +118,6 @@ document.getElementById("login-google-btn").addEventListener("click", async e =>
 // Wylogowanie
 document.getElementById("log-out").addEventListener("click", async () => {
 	logoutUser()
-})
-
-
-// Obsługa kliknięcia przycisku "enable-gps"
-document.getElementById("enable-gps").addEventListener("click", async () => {
-	const user = auth.currentUser
-	if (user) {
-		navigator.geolocation.getCurrentPosition(async position => {
-			const latitude = position.coords.latitude
-			const longitude = position.coords.longitude
-
-			// Zapisz lokalizację w historycznej kolekcji
-			await addHistoricUserLocation(user.email, latitude, longitude)
-		})
-	} else {
-		alert("Zaloguj się, aby zapisać lokalizację.")
-	}
 })
 
 // Obserwowanie stanu użytkownika
