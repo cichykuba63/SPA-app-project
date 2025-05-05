@@ -9,11 +9,26 @@ import {
 
 let map = null
 let marker = null
+let peopleMarkers = []
 
 function removeMarker() {
 	if (marker && map) {
 		map.removeLayer(marker) // Usuwa marker z mapy
 		marker = null // Ustawia marker na null
+	}
+}
+
+function clearPeopleMarkers() {
+	if (peopleMarkers.length > 0 && map) {
+		peopleMarkers.forEach(marker => {
+			map.removeLayer(marker)
+		})
+		peopleMarkers = []
+	}
+
+	const showPeopleBtn = document.getElementById("show-people")
+	if (showPeopleBtn) {
+		showPeopleBtn.textContent = "Show people"
 	}
 }
 
@@ -44,7 +59,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 	const toggleFlashlightBtn = document.getElementById("toggle-flashlight")
 
 	let userPosition = null
-	let peopleMarkers = [] // Przechowujemy markery użytkowników
 	let locationDocId = null
 	let track
 	let flashlightInterval = null
@@ -258,4 +272,4 @@ document.addEventListener("DOMContentLoaded", async () => {
 	})
 })
 
-export { removeMarker }
+export { removeMarker, clearPeopleMarkers }

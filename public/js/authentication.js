@@ -1,6 +1,6 @@
 import { auth, provider } from "./firebase.js"
 import { deleteUserLocation } from "./db.js"
-import { removeMarker } from "./main.js"
+import { removeMarker, clearPeopleMarkers } from "./main.js"
 import {
 	signInWithEmailAndPassword,
 	createUserWithEmailAndPassword,
@@ -48,7 +48,8 @@ function logoutUser() {
 			}
 
 			// Usunięcie markera, jeśli jest
-			removeMarker();
+			removeMarker()
+			clearPeopleMarkers()
 		} catch (error) {
 			console.error("Błąd podczas wylogowywania:", error)
 		}
