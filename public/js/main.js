@@ -111,6 +111,24 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 				// Dodajemy marker do tablicy
 				peopleMarkers.push(userMarker)
+
+				if (userPosition) {
+					const distance = calculateDistance(
+						userPosition[0],
+						userPosition[1],
+						user.location.latitude,
+						user.location.longitude
+					)
+					if (
+						gpsButton.dataset.status === "enabled" &&
+						showPeopleBtn.textContent === "Hide people" &&
+						distance <= 100 &&
+						user.name !== auth.currentUser.email
+					) {
+						navigator.vibrate(200)
+						console.log("Telefon wibruje.");
+					}
+				}
 			})
 		}
 	}
