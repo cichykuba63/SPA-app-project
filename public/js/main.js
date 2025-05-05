@@ -105,28 +105,30 @@ document.addEventListener("DOMContentLoaded", async () => {
 			const users = await fetchUserLocations()
 
 			users.forEach(user => {
-				const userMarker = L.marker([user.location.latitude, user.location.longitude])
-					.addTo(map)
-					.bindPopup(`${user.name}<br>${user.location.latitude}, ${user.location.longitude}`)
+				if (user.name !== auth.currentUser.email) {
+					const userMarker = L.marker([user.location.latitude, user.location.longitude])
+						.addTo(map)
+						.bindPopup(`${user.name}<br>${user.location.latitude}, ${user.location.longitude}`)
 
-				// Dodajemy marker do tablicy
-				peopleMarkers.push(userMarker)
+					// Dodajemy marker do tablicy
+					peopleMarkers.push(userMarker)
 
-				if (userPosition) {
-					const distance = calculateDistance(
-						userPosition[0],
-						userPosition[1],
-						user.location.latitude,
-						user.location.longitude
-					)
-					if (
-						gpsButton.dataset.status === "enabled" &&
-						showPeopleBtn.textContent === "Hide people" &&
-						distance <= 100 &&
-						user.name !== auth.currentUser.email
-					) {
-						navigator.vibrate(200)
-						console.log("Telefon wibruje.");
+					if (userPosition) {
+						const distance = calculateDistance(
+							userPosition[0],
+							userPosition[1],
+							user.location.latitude,
+							user.location.longitude
+						)
+						if (
+							gpsButton.dataset.status === "enabled" &&
+							showPeopleBtn.textContent === "Hide people" &&
+							distance <= 100 &&
+							user.name !== auth.currentUser.email
+						) {
+							navigator.vibrate(200)
+							console.log("Telefon wibruje.")
+						}
 					}
 				}
 			})
