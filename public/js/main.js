@@ -94,6 +94,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 	})
 
 	async function toggleUserMarkers() {
+		if (gpsButton.dataset.status !== "enabled") {
+			// Jeśli lokalizacja nie jest włączona, wyświetlamy komunikat
+			alert("Aby zobaczyć użytkowników na mapie, musisz włączyć lokalizację.")
+			return // Zatrzymujemy dalsze wykonywanie funkcji
+		}
 		// Jeśli markery są już na mapie, usuwamy je
 		if (peopleMarkers.length > 0) {
 			peopleMarkers.forEach(marker => {
@@ -137,12 +142,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 	// Obsługa kliknięcia w przycisk "show-people"
 	showPeopleBtn.addEventListener("click", () => {
-		toggleUserMarkers()
-
-		if (showPeopleBtn.textContent === "Show people") {
-			showPeopleBtn.textContent = "Hide people"
+		if (gpsButton.dataset.status !== "enabled") {
+			// Jeśli lokalizacja nie jest włączona, wyświetlamy komunikat i nie zmieniamy tekstu przycisku
+			alert("Aby zobaczyć użytkowników na mapie, musisz włączyć lokalizację.")
 		} else {
-			showPeopleBtn.textContent = "Show people"
+			// Jeśli lokalizacja jest włączona, wywołujemy toggleUserMarkers
+			toggleUserMarkers()
+
+			if (showPeopleBtn.textContent === "Show people") {
+				showPeopleBtn.textContent = "Hide people"
+			} else {
+				showPeopleBtn.textContent = "Show people"
+			}
 		}
 	})
 
@@ -205,7 +216,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 		if (gpsButton.dataset.status === "enabled") {
 			removeMarker()
 
-			map.setView([52.2297, 21.0122], 13)
+			clearPeopleMarkers()
+
 			gpsButton.textContent = "Enable GPS"
 			gpsButton.dataset.status = "disabled"
 
@@ -214,6 +226,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 				localStorage.removeItem("userLocationDocId")
 				locationDocId = null
 			}
+
+			const showPeopleBtn = document.getElementById("show-people")
+			if (showPeopleBtn) {
+				showPeopleBtn.textContent = "Show people"
+			}
+
 			return
 		}
 
